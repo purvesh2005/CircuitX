@@ -1,0 +1,57 @@
+<nav class="navbar">
+
+    <!-- Logo -->
+    <a href="/home" class="logo">
+        <div class="logo-icon">
+            <span>✦</span>
+        </div>
+
+        <div class="logo-text">
+            <h2>Circuit<span>X</span></h2>
+            <p>Reuse. Save. Build.</p>
+        </div>
+    </a>
+
+    <!-- Navigation Links -->
+    <div class="nav-links">
+
+        <a href="/home"
+           class="<%= activePage === 'home' ? 'active' : '' %>">
+            Home
+        </a>
+
+        <a href="/browse"
+           class="<%= activePage === 'browse' ? 'active' : '' %>">
+            Browse
+        </a>
+
+        <a href="/dashboard"
+           class="<%= activePage === 'dashboard' ? 'active' : '' %>">
+            Dashboard
+        </a>
+
+        <a href="/wishlist"
+           class="<%= activePage === 'wishlist' ? 'active' : '' %>">
+            Wishlist
+        </a>
+
+    </div>
+
+    <!-- Right Side -->
+    <div class="nav-right">
+
+        <button class="icon-btn" aria-label="Cart">
+            🛒
+        </button>
+
+        <button class="icon-btn" aria-label="Notifications">
+            ♡
+        </button>
+
+        <a href="/sell" class="sell-btn">
+            Sell Component
+        </a>
+
+    </div>
+
+</nav>
