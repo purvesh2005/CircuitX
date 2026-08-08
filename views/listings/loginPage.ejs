@@ -1,1 +1,101 @@
-<% layout("/layouts/boilerplate") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CircuitX - Login</title>
+
+    <link rel="stylesheet" href="/css/loginPage.css">
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <!-- LEFT SIDE -->
+        <div class="logo-section">
+
+            <div class="logo-circle"></div>
+
+            <img
+                src="/images/circuitx-logo.png"
+                alt="CircuitX Logo"
+                class="circuitx-logo"
+            >
+
+            <h2>CircuitX</h2>
+
+            <p>
+                Connect. Learn. Build.
+            </p>
+
+        </div>
+
+
+        <!-- RIGHT SIDE -->
+        <div class="form-section">
+
+            <h1>Welcome Back!</h1>
+
+            <p class="subtitle">
+                Login to your CircuitX account
+            </p>
+
+            <form action="/login" method="POST">
+
+                <div class="form-group">
+
+                    <label for="email">Email</label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="password">Password</label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="forgot-password">
+                    <a href="/forgot-password">
+                        Forgot Password?
+                    </a>
+                </div>
+
+
+                <button type="submit" class="login-btn">
+                    Login
+                </button>
+
+            </form>
+
+
+            <p class="register-text">
+                Don't have an account?
+                <a href="/register">Register</a>
+            </p>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
