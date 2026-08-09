@@ -103,5 +103,31 @@
 
     </div>
 
+    <% if (typeof error !== "undefined") { %>
+    <div id="errorPopup" class="error-popup">
+        <span><%= error %></span>
+        <button onclick="closePopup()">×</button>
+    </div>
+
+    <script>
+        // Automatically hide after 3 seconds
+        setTimeout(() => {
+            closePopup();
+        }, 3000);
+
+        function closePopup() {
+            const popup = document.getElementById("errorPopup");
+
+            if (popup) {
+                popup.style.opacity = "0";
+
+                setTimeout(() => {
+                    popup.remove();
+                }, 300);
+            }
+        }
+    </script>
+<% } %>
+
 </body>
 </html>

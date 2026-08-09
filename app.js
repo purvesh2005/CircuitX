@@ -31,36 +31,42 @@ app.use(express.urlencoded({extended:true}));
 app.use(express.static(path.join(__dirname,"/public")));
 app.engine("ejs",ejsMate);
 
-
+//root route
 app.get("/",(req,res)=>{
     res.send("root");
 });
 
-
+//home route
 app.get("/home",(req,res)=>{
     res.render("listings/homePage.ejs",{activePage: "home"});
 });
 
+//browse route
 app.get("/browse",(req,res)=>{
     res.render("listings/browseComponents.ejs",{activePage: "browse"});
 });
 
+//dashboard route
 app.get("/dashboard",(req,res)=>{
     res.render("listings/dashboard.ejs",{activePage: "dashboard"});
 });
 
+// wishlist route
 app.get("/wishlist",(req,res)=>{
     res.render("listings/wishlist.ejs",{activePage: "wishlist"});
 });
 
+//sell route
 app.get("/sell",(req,res)=>{
     res.render("listings/addNewComponent.ejs",{activePage: ""});
 });
 
+//user registration route
 app.get("/register",(req,res)=>{
     res.render("listings/registerPage.ejs");
 });
 
+//user creating account for first time and listing in database
 app.post("/register", (req, res) => {
     const { username, email, password, college } = req.body;
 
@@ -71,16 +77,16 @@ app.post("/register", (req, res) => {
 
         if (err) {
             console.log("MYSQL ERROR:", err);
-            return res.send("Something went wrong");
+            return res.render("listings/registerPage.ejs", {
+                error: "something went wrong"
+            });
         }
 
         // 2. User already exists
         if (results.length > 0) {
-            return res.send(`
-                <h2>Already Registered</h2>
-                <p>This email is already registered. Please login.</p>
-                <a href="/login">Login</a>
-            `);
+           return res.render("listings/loginPage.ejs", {
+                error: "User already exists"
+            });
         }
 
         // 3. User doesn't exist → create account
@@ -96,24 +102,60 @@ app.post("/register", (req, res) => {
 
                 if (err) {
                     console.log("MYSQL ERROR:", err);
-                    return res.send("Registration failed");
+                    return res.render("listings/registerPage.ejs", {
+                error: err
+            });
                 }
 
                 console.log("User created:", result.insertId);
 
-                res.send(`
-                    <h2>Registration Successful!</h2>
-                    <p>Your account has been created.</p>
-                    <a href="/login">Login</a>
-                `);
+                res.render("listings/loginPage.ejs");
             }
         );
     });
 });
+
+//login route
 app.get("/login",(req,res)=>{
     res.render("listings/loginPage.ejs");
 });
 
+/*user is loging in here if user existed then redirect to home page 
+else redirect to registration page*/
+app.post("/login", (req, res) => {
+    const { email, password } = req.body;
+
+    const sql = "SELECT * FROM users WHERE email = ?";
+
+    db.query(sql, [email], (err, result) => {
+        if (err) {
+            console.log(err);
+            return res.send("Database error");
+        }
+
+        // User not registered
+        if (result.length === 0) {
+            return res.render("listings/loginPage.ejs", {
+                error: "User is not registered"
+            });
+        }
+
+        const user = result[0];
+
+        // Wrong password
+        if (user.password !== password) {
+            return res.render("listings/loginPage.ejs", {
+                error: "Wrong password"
+            });
+        }
+
+        // Login successful
+        res.redirect("/home");
+    });
+});
+
+
+//server is listening at port 8080
 app.listen(8080,()=>{
     console.log("server is listening");
 });
