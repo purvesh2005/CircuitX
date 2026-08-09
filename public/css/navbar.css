@@ -20,7 +20,7 @@ body {
     display: flex;
     align-items: center;
 
-    padding: 0 38px;
+    padding: 0 60px;
 
     background: #ffffff;
     border-bottom: 1px solid #eeeeee;
@@ -109,7 +109,8 @@ body {
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 30px;
+    justify-content: space-evenly;
+    padding : 0px 150px ;
 
     flex: 1;
 }
@@ -160,28 +161,93 @@ body {
     color: #159b69;
 }
 
-/* ================= SELL BUTTON ================= */
+/* ================= PROFILE ================= */
 
-.sell-btn {
-    border: none;
+.profile-section {
+    display: flex;
+    align-items: center;
 
-    background: #07965f;
-    color: white;
+    gap: 9px;
 
-    padding: 11px 18px;
+    padding: 4px 8px;
 
-    border-radius: 6px;
+    text-decoration: none;
 
-    font-size: 15px;
-    font-weight: 600;
+    border-radius: 8px;
 
-    cursor: pointer;
-
-    transition: 0.2s ease;
+    transition: 0.2s;
 }
 
-.sell-btn:hover {
-    background: #067d50;
+.profile-section:hover {
+    background: #f0f8f5;
+}
+
+
+/* Profile Avatar */
+
+.profile-avatar {
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #dff5ec;
+
+    color: #059669;
+
+    font-size: 18px;
+}
+
+
+/* Profile Text */
+
+.profile-info {
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    gap: 2px;
+}
+
+.profile-name {
+    font-size: 12px;
+
+    font-weight: 600;
+
+    color: #1f2937;
+
+    white-space: nowrap;
+}
+
+.profile-label {
+    font-size: 9px;
+
+    color: #6b7280;
+}
+
+
+/* Mobile */
+
+@media (max-width: 700px) {
+
+    .profile-info {
+        display: none;
+    }
+
+    .profile-section {
+        padding: 0;
+    }
+
+    .profile-avatar {
+        width: 34px;
+        height: 34px;
+    }
 }
 
 /* ================= RESPONSIVE ================= */

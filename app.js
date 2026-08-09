@@ -11,6 +11,8 @@ const wishlistRoutes = require("./routes/wishlistRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
 const browseRoutes = require("./routes/browseRoutes");
 const rootRoutes = require("./routes/rootRoutes");
+const productDetailRoutes = require("./routes/productDetailRoutes");
+const categoriesRoutes = require("./routes/categoriesRoutes");
 
 // EJS
 app.set("view engine", "ejs");
@@ -30,6 +32,8 @@ app.use("/wishlist", wishlistRoutes);
 app.use("/dashboard", dashboardRoutes);
 app.use("/browse", browseRoutes);
 app.use("/", rootRoutes);
+app.use("/productDetails", productDetailRoutes);
+app.use("/categories", categoriesRoutes);
 
 // Server
 app.listen(8080, () => {

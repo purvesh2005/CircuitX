@@ -2,6 +2,7 @@
 
     <!-- Logo -->
     <a href="/home" class="logo">
+
         <div class="logo-icon">
             <span>✦</span>
         </div>
@@ -10,7 +11,9 @@
             <h2>Circuit<span>X</span></h2>
             <p>Reuse. Save. Build.</p>
         </div>
+
     </a>
+
 
     <!-- Navigation Links -->
     <div class="nav-links">
@@ -25,6 +28,11 @@
             Browse
         </a>
 
+        <a href="/categories"
+           class="<%= activePage === 'categories' ? 'active' : '' %>">
+            Categories
+        </a>
+
         <a href="/dashboard"
            class="<%= activePage === 'dashboard' ? 'active' : '' %>">
             Dashboard
@@ -37,19 +45,42 @@
 
     </div>
 
+
     <!-- Right Side -->
     <div class="nav-right">
 
+        <!-- Cart -->
         <button class="icon-btn" aria-label="Cart">
             🛒
         </button>
 
+        <!-- Notifications -->
         <button class="icon-btn" aria-label="Notifications">
             ♡
         </button>
 
-        <a href="/sell" class="sell-btn">
-            Sell Component
+
+        <!-- Profile -->
+        <a href="/profile" class="profile-section">
+
+            <div class="profile-avatar">
+                <span>👤</span>
+            </div>
+
+            <div class="profile-info">
+
+                <span class="profile-name">
+                    <%= typeof user !== "undefined" && user
+                        ? user.name
+                        : "Guest" %>
+                </span>
+
+                <span class="profile-label">
+                    My Profile
+                </span>
+
+            </div>
+
         </a>
 
     </div>
