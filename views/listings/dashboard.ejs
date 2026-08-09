@@ -1,3 +1,825 @@
 <% layout("/layouts/boilerplate") %>
 
-<h2>dashboard</h2>
+<style>
+    /* =====================================
+   DASHBOARD PAGE
+===================================== */
+
+.dashboard-page {
+    min-height: calc(100vh - 70px);
+
+    background: #f7f9f8;
+
+    padding: 30px 16px 40px;
+}
+
+
+.dashboard-container {
+    max-width: 1500px;
+
+    min-height: 600px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns: 185px 1fr;
+
+    background: white;
+
+    border: 1px solid #eeeeee;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.04);
+}
+
+
+/* =====================================
+   SIDEBAR
+===================================== */
+
+.dashboard-sidebar {
+    border-right: 1px solid #eeeeee;
+
+    padding: 30px 12px;
+
+    background: #ffffff;
+}
+
+
+.sidebar-item {
+    height: 36px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 0 12px;
+
+    margin-bottom: 5px;
+
+    border-radius: 6px;
+
+    text-decoration: none;
+
+    color: #252525;
+
+    font-size: 15px;
+
+    font-weight: 500;
+
+    transition: 0.2s;
+}
+
+
+.sidebar-item i {
+    width: 14px;
+
+    text-align: center;
+
+    font-size: 15px;
+}
+
+
+.sidebar-item:hover {
+    background: #f0f8f5;
+
+    color: #08a568;
+}
+
+
+/* Active */
+
+.sidebar-item.active {
+    background: #e9f7f1;
+
+    color: #222;
+
+    font-weight: 600;
+}
+
+
+/* Logout */
+
+.sidebar-item.logout {
+    margin-top: 8px;
+}
+
+
+/* =====================================
+   MAIN CONTENT
+===================================== */
+
+.dashboard-content {
+    padding: 30px 28px 30px;
+
+    min-width: 0;
+}
+
+
+.dashboard-content h1 {
+    font-size: 18px;
+
+    font-weight: 700;
+
+    margin-bottom: 25px;
+}
+
+
+.listings-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 14px;
+}
+
+
+.listings-header h2 {
+    font-size: 16px;
+
+    font-weight: 700;
+}
+
+
+.add-component-btn {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    height: 32px;
+
+    padding: 0 14px;
+
+    background: #08a568;
+
+    color: white;
+
+    border-radius: 6px;
+
+    text-decoration: none;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    transition: 0.2s;
+}
+
+
+.add-component-btn:hover {
+    background: #078b58;
+}
+
+
+/* =====================================
+   LISTINGS TABLE
+===================================== */
+
+.listings-table {
+    width: 100%;
+
+    border: 1px solid #eeeeee;
+
+    border-radius: 6px;
+
+    overflow: hidden;
+}
+
+
+/* Table Header */
+
+.table-header {
+    min-height: 34px;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(180px, 2.2fr)
+        minmax(60px, 0.8fr)
+        minmax(80px, 1fr)
+        minmax(50px, 0.6fr)
+        minmax(70px, 0.8fr);
+
+    align-items: center;
+
+    background: #fafafa;
+
+    border-bottom: 1px solid #eeeeee;
+
+    padding: 0 10px;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    color: #333;
+}
+
+
+/* Listing Row */
+
+.listing-row {
+    min-height: 58px;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(180px, 2.2fr)
+        minmax(60px, 0.8fr)
+        minmax(80px, 1fr)
+        minmax(50px, 0.6fr)
+        minmax(70px, 0.8fr);
+
+    align-items: center;
+
+    padding: 0 10px;
+
+    border-bottom: 1px solid #eeeeee;
+}
+
+
+.listing-row:last-child {
+    border-bottom: none;
+}
+
+
+/* =====================================
+   COMPONENT
+===================================== */
+
+.component-info {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    min-width: 0;
+}
+
+
+.component-info span {
+    font-size: 11px;
+
+    font-weight: 500;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+.component-image {
+    width: 32px;
+
+    height: 32px;
+
+    border-radius: 5px;
+
+    background: #f5f5f5;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    overflow: hidden;
+
+    flex-shrink: 0;
+}
+
+
+.component-image img {
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: contain;
+}
+
+
+/* =====================================
+   PRICE
+===================================== */
+
+.price {
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+
+/* =====================================
+   STATUS
+===================================== */
+
+.status {
+    font-size: 10px;
+
+    font-weight: 600;
+}
+
+
+.status.available {
+    color: #08a568;
+}
+
+
+.status.sold {
+    color: #c47721;
+}
+
+
+.status.reserved {
+    color: #2877c7;
+}
+
+
+/* =====================================
+   VIEWS
+===================================== */
+
+.views {
+    font-size: 11px;
+
+    color: #333;
+}
+
+
+/* =====================================
+   ACTIONS
+===================================== */
+
+.actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+}
+
+
+.actions button {
+    width: 25px;
+
+    height: 25px;
+
+    border-radius: 6px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    cursor: pointer;
+
+    background: white;
+
+    font-size: 11px;
+}
+
+
+.edit-btn {
+    border: 1px solid #d7eee5;
+
+    color: #08a568;
+}
+
+
+.delete-btn {
+    border: 1px solid #f2d9d9;
+
+    color: #e55b5b;
+}
+
+
+.edit-btn:hover {
+    background: #eaf8f3;
+}
+
+
+.delete-btn:hover {
+    background: #fff1f1;
+}
+
+
+/* =====================================
+   VIEW ALL BUTTON
+===================================== */
+
+.view-all-btn {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 130px;
+
+    height: 34px;
+
+    margin-top: 22px;
+
+    border: 1px solid #08a568;
+
+    border-radius: 5px;
+
+    color: #087d53;
+
+    background: white;
+
+    text-decoration: none;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    transition: 0.2s;
+}
+
+
+.view-all-btn:hover {
+    background: #eaf8f3;
+}
+
+
+/* =====================================
+   RESPONSIVE
+===================================== */
+
+@media (max-width: 800px) {
+
+    .dashboard-container {
+        grid-template-columns: 150px 1fr;
+    }
+
+    .dashboard-content {
+        padding: 25px 18px;
+    }
+
+    .table-header,
+    .listing-row {
+        grid-template-columns:
+            minmax(140px, 2fr)
+            60px
+            70px
+            45px
+            65px;
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .dashboard-container {
+        grid-template-columns: 1fr;
+    }
+
+
+    .dashboard-sidebar {
+        border-right: none;
+
+        border-bottom: 1px solid #eeeeee;
+
+        display: flex;
+
+        overflow-x: auto;
+
+        padding: 10px;
+
+        gap: 5px;
+    }
+
+
+    .sidebar-item {
+        flex-shrink: 0;
+
+        margin: 0;
+    }
+
+
+    .sidebar-item.logout {
+        margin-top: 0;
+    }
+
+
+    .listings-table {
+        overflow-x: auto;
+    }
+
+
+    .table-header,
+    .listing-row {
+        min-width: 600px;
+    }
+
+}
+html {
+    scrollbar-width: none; /* Firefox */
+}
+
+html::-webkit-scrollbar {
+    display: none; /* Chrome, Edge, Safari */
+}
+
+body {
+    scrollbar-width: none;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+</style>
+
+<div class="dashboard-page">
+
+    <div class="dashboard-container">
+
+        <!-- ================= SIDEBAR ================= -->
+
+        <aside class="dashboard-sidebar">
+
+            <a href="/dashboard" class="sidebar-item active">
+                <i class="fa-solid fa-gauge-high"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="/myListings" class="sidebar-item">
+                <i class="fa-regular fa-rectangle-list"></i>
+                <span>My Listings</span>
+            </a>
+
+            <a href="/wishlist" class="sidebar-item">
+                <i class="fa-regular fa-heart"></i>
+                <span>Wishlist</span>
+            </a>
+
+            <a href="/messages" class="sidebar-item">
+                <i class="fa-regular fa-message"></i>
+                <span>Messages</span>
+            </a>
+
+            <a href="/orders" class="sidebar-item">
+                <i class="fa-regular fa-clipboard"></i>
+                <span>Orders</span>
+            </a>
+
+            <a href="/profile" class="sidebar-item">
+                <i class="fa-regular fa-user"></i>
+                <span>Profile</span>
+            </a>
+
+            <a href="/settings" class="sidebar-item">
+                <i class="fa-solid fa-gear"></i>
+                <span>Settings</span>
+            </a>
+
+            <a href="/logout" class="sidebar-item logout">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                <span>Logout</span>
+            </a>
+
+        </aside>
+
+
+        <!-- ================= MAIN CONTENT ================= -->
+
+        <main class="dashboard-content">
+
+            <h1>My Dashboard</h1>
+
+
+            <!-- Listings Heading -->
+
+            <div class="listings-header">
+
+                <h2>My Listings</h2>
+
+                <a href="/sell" class="add-component-btn">
+                    Add New Component
+                </a>
+
+            </div>
+
+
+            <!-- ================= LISTINGS TABLE ================= -->
+
+            <div class="listings-table">
+
+                <!-- Header -->
+
+                <div class="table-header">
+
+                    <div>Component</div>
+                    <div>Price</div>
+                    <div>Status</div>
+                    <div>Views</div>
+                    <div>Actions</div>
+
+                </div>
+
+
+                <!-- Product 1 -->
+
+                <div class="listing-row">
+
+                    <div class="component-info">
+
+                        <div class="component-image">
+                            <img
+                                src="/images/arduino.png"
+                                alt="Arduino UNO R3"
+                            >
+                        </div>
+
+                        <span>Arduino UNO R3</span>
+
+                    </div>
+
+                    <div class="price">
+                        ₹450
+                    </div>
+
+                    <div class="status available">
+                        Available
+                    </div>
+
+                    <div class="views">
+                        28
+                    </div>
+
+                    <div class="actions">
+
+                        <button class="edit-btn">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+
+                        <button class="delete-btn">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Product 2 -->
+
+                <div class="listing-row">
+
+                    <div class="component-info">
+
+                        <div class="component-image">
+                            <img
+                                src="/images/hc-sr04.png"
+                                alt="HC-SR04 Sensor"
+                            >
+                        </div>
+
+                        <span>HC-SR04 Sensor</span>
+
+                    </div>
+
+                    <div class="price">
+                        ₹60
+                    </div>
+
+                    <div class="status available">
+                        Available
+                    </div>
+
+                    <div class="views">
+                        15
+                    </div>
+
+                    <div class="actions">
+
+                        <button class="edit-btn">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+
+                        <button class="delete-btn">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Product 3 -->
+
+                <div class="listing-row">
+
+                    <div class="component-info">
+
+                        <div class="component-image">
+                            <img
+                                src="/images/l298n.png"
+                                alt="L298N Motor Driver"
+                            >
+                        </div>
+
+                        <span>L298N Motor Driver</span>
+
+                    </div>
+
+                    <div class="price">
+                        ₹120
+                    </div>
+
+                    <div class="status sold">
+                        Sold
+                    </div>
+
+                    <div class="views">
+                        42
+                    </div>
+
+                    <div class="actions">
+
+                        <button class="edit-btn">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+
+                        <button class="delete-btn">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Product 4 -->
+
+                <div class="listing-row">
+
+                    <div class="component-info">
+
+                        <div class="component-image">
+                            <img
+                                src="/images/lcd.png"
+                                alt="16x2 LCD Display"
+                            >
+                        </div>
+
+                        <span>16x2 LCD Display</span>
+
+                    </div>
+
+                    <div class="price">
+                        ₹100
+                    </div>
+
+                    <div class="status reserved">
+                        Reserved
+                    </div>
+
+                    <div class="views">
+                        10
+                    </div>
+
+                    <div class="actions">
+
+                        <button class="edit-btn">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+
+                        <button class="delete-btn">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- View All -->
+
+            <a href="/myListings" class="view-all-btn">
+                View All Listings
+            </a>
+
+        </main>
+
+    </div>
+
+</div>

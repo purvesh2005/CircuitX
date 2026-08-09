@@ -1,3 +1,669 @@
 <% layout("/layouts/boilerplate") %>
 
-<h2>Categories</h2>
+<style>
+    /* =====================================
+   CATEGORIES PAGE
+===================================== */
+
+.categories-page {
+    min-height: calc(100vh - 70px);
+
+    background: #f7f9f8;
+
+    padding: 30px 16px 40px;
+}
+
+
+.categories-container {
+    max-width: 1100px;
+
+    margin: auto;
+
+    background: #ffffff;
+
+    border: 1px solid #eeeeee;
+
+    border-radius: 12px;
+
+    padding: 30px 32px 40px;
+
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.04);
+}
+
+
+/* =====================================
+   HEADING
+===================================== */
+
+.categories-heading {
+    margin-bottom: 27px;
+}
+
+
+.categories-heading h1 {
+    font-size: 22px;
+
+    margin-bottom: 6px;
+
+    font-weight: 700;
+}
+
+
+.categories-heading p {
+    font-size: 12px;
+
+    color: #555;
+}
+
+
+/* =====================================
+   CATEGORY GRID
+===================================== */
+
+.categories-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 15px;
+}
+
+
+/* =====================================
+   CATEGORY CARD
+===================================== */
+
+.category-card {
+    min-height: 205px;
+
+    border: 1px solid #e8e8e8;
+
+    border-radius: 10px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    text-align: center;
+
+    padding: 18px 12px 15px;
+
+    background: white;
+
+    transition: 0.2s;
+
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.02);
+}
+
+
+.category-card:hover {
+    transform: translateY(-2px);
+
+    border-color: #bfe7d7;
+
+    box-shadow:
+        0 5px 15px rgba(0, 0, 0, 0.06);
+}
+
+
+/* =====================================
+   CATEGORY ICON
+===================================== */
+
+.category-icon {
+    width: 66px;
+
+    height: 66px;
+
+    border-radius: 12px;
+
+    background: #eef8f4;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin-bottom: 13px;
+}
+
+
+.category-icon i {
+    font-size: 27px;
+
+    color: #087d53;
+}
+
+
+/* =====================================
+   TEXT
+===================================== */
+
+.category-card h3 {
+    font-size: 11px;
+
+    font-weight: 700;
+
+    margin-bottom: 8px;
+
+    min-height: 14px;
+}
+
+
+.category-card p {
+    font-size: 9px;
+
+    color: #777;
+
+    margin-bottom: 17px;
+}
+
+
+/* =====================================
+   VIEW ALL BUTTON
+===================================== */
+
+.category-btn {
+    width: 90px;
+
+    height: 31px;
+
+    border: 1px solid #a9dbc8;
+
+    border-radius: 5px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 9px;
+
+    text-decoration: none;
+
+    color: #087d53;
+
+    font-size: 9px;
+
+    font-weight: 600;
+
+    margin-top: auto;
+
+    transition: 0.2s;
+}
+
+
+.category-btn i {
+    font-size: 8px;
+}
+
+
+.category-btn:hover {
+    background: #eaf8f3;
+
+    border-color: #08a568;
+}
+
+
+/* =====================================
+   SELL BANNER
+===================================== */
+
+.sell-banner {
+    margin-top: 25px;
+
+    min-height: 75px;
+
+    border-radius: 10px;
+
+    background: #eef9f4;
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 12px 22px;
+
+    gap: 15px;
+}
+
+
+.sell-icon {
+    width: 44px;
+
+    height: 44px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #dff4eb;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+
+.sell-icon i {
+    color: #078b58;
+
+    font-size: 20px;
+}
+
+
+.sell-text {
+    flex: 1;
+}
+
+
+.sell-text h3 {
+    font-size: 11px;
+
+    margin-bottom: 5px;
+
+    font-weight: 700;
+}
+
+
+.sell-text p {
+    font-size: 9px;
+
+    color: #555;
+}
+
+
+.sell-btn {
+    height: 34px;
+
+    padding: 0 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #078b58;
+
+    color: white;
+
+    border-radius: 5px;
+
+    text-decoration: none;
+
+    font-size: 9px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+
+    transition: 0.2s;
+}
+
+
+.sell-btn:hover {
+    background: #056f46;
+}
+
+
+/* =====================================
+   RESPONSIVE
+===================================== */
+
+@media (max-width: 850px) {
+
+    .categories-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .categories-container {
+        padding: 22px 18px 30px;
+    }
+
+
+    .categories-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+
+    .sell-banner {
+        flex-wrap: wrap;
+    }
+
+
+    .sell-text {
+        min-width: calc(100% - 65px);
+    }
+
+
+    .sell-btn {
+        margin-left: 59px;
+    }
+
+}
+
+
+@media (max-width: 420px) {
+
+    .categories-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .sell-banner {
+        align-items: flex-start;
+    }
+
+
+    .sell-btn {
+        margin-left: 0;
+    }
+
+}
+html {
+    scrollbar-width: none; /* Firefox */
+}
+
+html::-webkit-scrollbar {
+    display: none; /* Chrome, Edge, Safari */
+}
+
+body {
+    scrollbar-width: none;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+</style>
+
+<div class="categories-page">
+
+    <div class="categories-container">
+
+        <!-- Page Heading -->
+        <div class="categories-heading">
+            <h1>Categories</h1>
+            <p>Explore components by category</p>
+        </div>
+
+
+        <!-- Categories Grid -->
+        <div class="categories-grid">
+
+            <!-- Microcontrollers -->
+            <div class="category-card">
+
+                <div class="category-icon">
+                    <i class="fa-solid fa-microchip"></i>
+                </div>
+
+                <h3>Microcontrollers</h3>
+
+                <p>125 Items</p>
+
+                <a href="/browse?category=Microcontrollers"
+                   class="category-btn">
+                    View All
+                    <i class="fa-solid fa-chevron-right"></i>
+                </a>
+
+            </div>
+
+
+            <!-- Resistors -->
+            <div class="category-card">
+
+                <div class="category-icon">
+                    <i class="fa-solid fa-resistor"></i>
+                </div>
+
+                <h3>Resistors & Capacitors</h3>
+
+                <p>210 Items</p>
+
+                <a href="/browse?category=Resistors"
+                   class="category-btn">
+                    View All
+                    <i class="fa-solid fa-chevron-right"></i>
+                </a>
+
+            </div>
+
+
+            <!-- Semiconductors -->
+            <div class="category-card">
+
+                <div class="category-icon">
+                    <i class="fa-solid fa-plug"></i>
+                </div>
+
+                <h3>Semiconductors</h3>
+
+                <p>95 Items</p>
+
+                <a href="/browse?category=Semiconductors"
+                   class="category-btn">
+                    View All
+                    <i class="fa-solid fa-chevron-right"></i>
+                </a>
+
+            </div>
+
+
+            <!-- Connectors -->
+            <div class="category-card">
+
+                <div class="category-icon">
+                    <i class="fa-solid fa-ethernet"></i>
+                </div>
+
+                <h3>Connectors</h3>
+
+                <p>80 Items</p>
+
+                <a href="/browse?category=Connectors"
+                   class="category-btn">
+                    View All
+                    <i class="fa-solid fa-chevron-right"></i>
+                </a>
+
+            </div>
+
+
+            <!-- Sensors -->
+            <div class="category-card">
+
+                <div class="category-icon">
+                    <i class="fa-solid fa-tower-broadcast"></i>
+                </div>
+
+                <h3>Sensors</h3>
+
+                <p>145 Items</p>
+
+                <a href="/browse?category=Sensors"
+                   class="category-btn">
+                    View All
+                    <i class="fa-solid fa-chevron-right"></i>
+                </a>
+
+            </div>
+
+
+            <!-- Modules -->
+            <div class="category-card">
+
+                <div class="category-icon">
+                    <i class="fa-solid fa-memory"></i>
+                </div>
+
+                <h3>Modules</h3>
+
+                <p>110 Items</p>
+
+                <a href="/browse?category=Modules"
+                   class="category-btn">
+                    View All
+                    <i class="fa-solid fa-chevron-right"></i>
+                </a>
+
+            </div>
+
+
+            <!-- Power Supply -->
+            <div class="category-card">
+
+                <div class="category-icon">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+
+                <h3>Power Supply</h3>
+
+                <p>60 Items</p>
+
+                <a href="/browse?category=Power%20Supply"
+                   class="category-btn">
+                    View All
+                    <i class="fa-solid fa-chevron-right"></i>
+                </a>
+
+            </div>
+
+
+            <!-- Displays -->
+            <div class="category-card">
+
+                <div class="category-icon">
+                    <i class="fa-solid fa-tv"></i>
+                </div>
+
+                <h3>Displays</h3>
+
+                <p>75 Items</p>
+
+                <a href="/browse?category=Displays"
+                   class="category-btn">
+                    View All
+                    <i class="fa-solid fa-chevron-right"></i>
+                </a>
+
+            </div>
+
+
+            <!-- Switches -->
+            <div class="category-card">
+
+                <div class="category-icon">
+                    <i class="fa-solid fa-toggle-on"></i>
+                </div>
+
+                <h3>Switches & Relays</h3>
+
+                <p>50 Items</p>
+
+                <a href="/browse?category=Switches"
+                   class="category-btn">
+                    View All
+                    <i class="fa-solid fa-chevron-right"></i>
+                </a>
+
+            </div>
+
+
+            <!-- Motors -->
+            <div class="category-card">
+
+                <div class="category-icon">
+                    <i class="fa-solid fa-gears"></i>
+                </div>
+
+                <h3>Motors</h3>
+
+                <p>40 Items</p>
+
+                <a href="/browse?category=Motors"
+                   class="category-btn">
+                    View All
+                    <i class="fa-solid fa-chevron-right"></i>
+                </a>
+
+            </div>
+
+
+            <!-- Development Boards -->
+            <div class="category-card">
+
+                <div class="category-icon">
+                    <i class="fa-solid fa-code"></i>
+                </div>
+
+                <h3>Development Boards</h3>
+
+                <p>70 Items</p>
+
+                <a href="/browse?category=Development%20Boards"
+                   class="category-btn">
+                    View All
+                    <i class="fa-solid fa-chevron-right"></i>
+                </a>
+
+            </div>
+
+
+            <!-- Tools -->
+            <div class="category-card">
+
+                <div class="category-icon">
+                    <i class="fa-solid fa-screwdriver-wrench"></i>
+                </div>
+
+                <h3>Tools & Accessories</h3>
+
+                <p>65 Items</p>
+
+                <a href="/browse?category=Tools"
+                   class="category-btn">
+                    View All
+                    <i class="fa-solid fa-chevron-right"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- Bottom Sell Banner -->
+        <div class="sell-banner">
+
+            <div class="sell-icon">
+                <i class="fa-solid fa-recycle"></i>
+            </div>
+
+            <div class="sell-text">
+                <h3>Can't find what you need?</h3>
+                <p>Sell your component to help others and earn!</p>
+            </div>
+
+            <a href="/addComponent" class="sell-btn">
+                Sell Your Component
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
