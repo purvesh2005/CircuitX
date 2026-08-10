@@ -638,7 +638,7 @@ body {
                 <div class="title-row">
 
                     <h1>
-                        Arduino UNO R3
+                        <%=product.product_name%>
                     </h1>
 
                     <button
@@ -657,16 +657,16 @@ body {
 
                     <div class="price">
 
-                        ₹450
+                        <%=product.Price%>
 
                     </div>
 
                     <del>
-                        ₹900
+                        <%=product.original_price%>
                     </del>
 
                     <span class="discount">
-                        50% OFF
+                        <%=(100-(((product.Price)/(product.original_price))*100))%> %OFF
                     </span>
 
                     <span class="stock">
@@ -682,22 +682,35 @@ body {
 
                     <span>
                         <i class="fa-regular fa-circle-check"></i>
-                        Like New
+                        <%=product.Product_condition%>
                     </span>
 
                     <span>
                         <i class="fa-regular fa-clock"></i>
-                        Used for 2 months
+                        <%
+                            const purchased = new Date(product.purchase_date);
+                            const today = new Date();
+
+                            const days = Math.floor(
+                            (today - purchased) / (1000 * 60 * 60 * 24)
+                                );
+                        %>
+
+                            <%= days %> days ago
                     </span>
 
                     <span>
                         <i class="fa-solid fa-location-dot"></i>
-                        Pune, Maharashtra
+                        <%=product.city%>,<%=product.state%>
                     </span>
 
                     <span>
                         <i class="fa-regular fa-calendar"></i>
-                        Posted on 12 May 2024
+                       <%= new Date(product.created_at).toLocaleDateString('en-IN', {
+                        day: '2-digit',
+                        month: 'short',
+                        year: 'numeric'
+                        }) %>
                     </span>
 
                 </div>
@@ -717,19 +730,11 @@ body {
                     </h3>
 
                     <p>
-                        Arduino UNO R3 in excellent condition.
+                         <%=product.description%>
                     </p>
 
                     <p>
-                        Used for a final year project. Fully working.
-                    </p>
-
-                    <p>
-                        Comes with original box and cable.
-                    </p>
-
-                    <p>
-                        Quantity: 1
+                        Quantity:  <%=product.quantity%>
                     </p>
 
                 </div>

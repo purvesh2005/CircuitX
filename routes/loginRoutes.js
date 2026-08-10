@@ -36,7 +36,11 @@ router.post("/", (req, res) => {
             });
         }
 
-        // Login successful
+       //printing userId which user is logedin
+        const users = result[0];
+        console.log(users.user_id);
+
+         // Login successful
         res.redirect("/home");
     });
 });

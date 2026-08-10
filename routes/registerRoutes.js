@@ -1,54 +1,64 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db/connection");
+const crypto = require("crypto");
 
-//user registration route
-router.get("/",(req,res)=>{
+// User registration page
+router.get("/", (req, res) => {
     res.render("listings/registerPage.ejs");
 });
 
-//user creating account for first time and listing in database
+// User creating account
 router.post("/", (req, res) => {
-    const { username, email, password, college } = req.body;
 
-    // 1. Check if email already exists
+    const { username, email, password, college, phone} = req.body;
+
+    // Check if email already exists
     const checkSql = "SELECT * FROM users WHERE email = ?";
 
     db.query(checkSql, [email], (err, results) => {
 
         if (err) {
             console.log("MYSQL ERROR:", err);
+
             return res.render("listings/registerPage.ejs", {
-                error: "something went wrong"
+                error: "Something went wrong"
             });
         }
 
-        // 2. User already exists
+        // User already exists
         if (results.length > 0) {
-           return res.render("listings/loginPage.ejs", {
+
+            return res.render("listings/loginPage.ejs", {
                 error: "User already exists"
             });
         }
 
-        // 3. User doesn't exist → create account
+        // Generate UUID
+        const userId = crypto.randomUUID();
+        const created_at = new Date();
+
+        // User doesn't exist → create account
         const insertSql = `
-            INSERT INTO users (username, email, password , collegeName)
-            VALUES (?, ?, ? ,?)
+            INSERT INTO users 
+            (user_id, name, email, password, college,phone,created_at)
+            VALUES (?, ?, ?, ?, ?,?,?)
         `;
 
         db.query(
             insertSql,
-            [username, email, password , college],
+            [userId, username, email, password, college,phone,created_at],
             (err, result) => {
 
                 if (err) {
                     console.log("MYSQL ERROR:", err);
+
                     return res.render("listings/registerPage.ejs", {
-                error: err
-            });
+                        error: "Something went wrong"
+                    });
                 }
 
-                console.log("User created:", result.insertId);
+                console.log("User created:", userId);
 
                 res.render("listings/loginPage.ejs");
             }

@@ -1021,265 +1021,56 @@ body::-webkit-scrollbar {
             <!-- ================= PRODUCT GRID ================= -->
 
             <div class="product-grid">
+                <% for (let product of products) { %>
 
-<!-- PRODUCT 1 -->
+    <a
+        href="/productDetails/<%= product.product_id %>"
+        class="product-card"
+    >
 
-<a href="/productDetails" class="product-card">
+        <div class="product-image">
 
-    <div class="product-image">
+            <img
+                src="/images/aurdino.png"
+                alt="<%= product.product_name %>"
+            >
 
-        <img
-            src="/images/aurdino.png"
-            alt="Arduino UNO R3"
-        >
-
-        <button
-            type="button"
-            class="wishlist-btn"
-            onclick="event.preventDefault(); event.stopPropagation();"
-        >
-            ♡
-        </button>
-
-    </div>
-
-    <div class="product-info">
-
-        <h3>Arduino UNO R3</h3>
-
-        <div class="price-row">
-
-            <strong>₹450</strong>
-
-            <del>₹900</del>
-
-            <span>50% OFF</span>
+            <button
+                type="button"
+                class="wishlist-btn"
+            >
+                ♡
+            </button>
 
         </div>
 
-        <p class="location">
-            📍 Pune
-        </p>
+        <div class="product-info">
 
-    </div>
+            <h3>
+                <%= product.product_name %>
+            </h3>
 
-</a>
+            <div class="price-row">
 
+                <strong>
+                    ₹<%= product.Price %>
+                </strong>
 
-                <!-- PRODUCT 2 -->
+                <del>
+                    ₹<%= product.original_price %>
+                </del>
 
-                <div class="product-card">
+            </div>
 
-                    <div class="product-image">
+            <p class="location">
+                📍 <%= product.city %>
+            </p>
+</div>
+        </a>
 
-                        <img
-                            src="/images/sensors.png"
-                            alt="HC-SR04 Ultrasonic Sensor"
-                        >
+    
 
-                        <button
-                            type="button"
-                            class="wishlist-btn"
-                        >
-                            ♡
-                        </button>
-
-                    </div>
-
-                    <div class="product-info">
-
-                        <h3>HC-SR04 Ultrasonic Sensor</h3>
-
-                        <div class="price-row">
-
-                            <strong>₹80</strong>
-
-                            <del>₹150</del>
-
-                            <span>47% OFF</span>
-
-                        </div>
-
-                        <p class="location">
-                            📍 Mumbai
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <!-- PRODUCT 3 -->
-
-                <div class="product-card">
-
-                    <div class="product-image">
-
-                        <img
-                            src="/images/esp32.png"
-                            alt="NodeMCU ESP8266"
-                        >
-
-                        <button
-                            type="button"
-                            class="wishlist-btn"
-                        >
-                            ♡
-                        </button>
-
-                    </div>
-
-                    <div class="product-info">
-
-                        <h3>NodeMCU ESP8266</h3>
-
-                        <div class="price-row">
-
-                            <strong>₹220</strong>
-
-                            <del>₹450</del>
-
-                            <span>51% OFF</span>
-
-                        </div>
-
-                        <p class="location">
-                            📍 Aurangabad
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <!-- PRODUCT 4 -->
-
-                <div class="product-card">
-
-                    <div class="product-image">
-
-                        <img
-                            src="/images/motor.png"
-                            alt="L298N Motor Driver"
-                        >
-
-                        <button
-                            type="button"
-                            class="wishlist-btn heart-red"
-                        >
-                            ♡
-                        </button>
-
-                    </div>
-
-                    <div class="product-info">
-
-                        <h3>L298N Motor Driver</h3>
-
-                        <div class="price-row">
-
-                            <strong>₹120</strong>
-
-                            <del>₹250</del>
-
-                            <span>52% OFF</span>
-
-                        </div>
-
-                        <p class="location">
-                            📍 Pune
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <!-- PRODUCT 5 -->
-
-                <div class="product-card">
-
-                    <div class="product-image">
-
-                        <img
-                            src="/images/ICs.png"
-                            alt="IR Obstacle Avoidance Sensor"
-                        >
-
-                        <button
-                            type="button"
-                            class="wishlist-btn"
-                        >
-                            ♡
-                        </button>
-
-                    </div>
-
-                    <div class="product-info">
-
-                        <h3>IR Obstacle Avoidance Sensor</h3>
-
-                        <div class="price-row">
-
-                            <strong>₹60</strong>
-
-                            <del>₹100</del>
-
-                            <span>40% OFF</span>
-
-                        </div>
-
-                        <p class="location">
-                            📍 Mumbai
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <!-- PRODUCT 6 -->
-
-                <div class="product-card">
-
-                    <div class="product-image">
-
-                        <img
-                            src="/images/lcd.jpg"
-                            alt="16x2 LCD Display"
-                        >
-
-                        <button
-                            type="button"
-                            class="wishlist-btn"
-                        >
-                            ♡
-                        </button>
-
-                    </div>
-
-                    <div class="product-info">
-
-                        <h3>16x2 LCD Display</h3>
-
-                        <div class="price-row">
-
-                            <strong>₹100</strong>
-
-                            <del>₹200</del>
-
-                            <span>50% OFF</span>
-
-                        </div>
-
-                        <p class="location">
-                            📍 Pune
-                        </p>
-
-                    </div>
-
-                </div>
-
+<% } %>
             </div>
 
 

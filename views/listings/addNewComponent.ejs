@@ -358,7 +358,10 @@ body::-webkit-scrollbar {
 }
 </style>
 
-<div class="page-container">
+<form
+    action="/sell"
+    method="POST"
+>
 
     <div class="form-card">
 
@@ -379,7 +382,9 @@ body::-webkit-scrollbar {
 
                     <input
                         type="text"
+                        name="title"
                         placeholder="e.g. Arduino UNO R3"
+                        required
                     >
                 </div>
 
@@ -392,13 +397,13 @@ body::-webkit-scrollbar {
                             Category <span>*</span>
                         </label>
 
-                        <select>
-                            <option>Select Category</option>
-                            <option>Microcontrollers</option>
-                            <option>Sensors</option>
-                            <option>Development Boards</option>
-                            <option>Resistors</option>
-                            <option>Capacitors</option>
+                        <select name="category" required>
+                            <option value="">Select Category</option>
+                            <option value="Microcontrollers">Microcontrollers</option>
+                            <option value="Sensors">Sensors</option>
+                            <option value="Development Boards">Development Boards</option>
+                            <option value="Resistors">Resistors</option>
+                            <option value="Capacitors">Capacitors</option>
                         </select>
                     </div>
 
@@ -408,12 +413,12 @@ body::-webkit-scrollbar {
                             Condition <span>*</span>
                         </label>
 
-                        <select>
-                            <option>Select Condition</option>
-                            <option>New</option>
-                            <option>Like New</option>
-                            <option>Good</option>
-                            <option>Used</option>
+                        <select name="condition" required>
+                            <option value="">Select Condition</option>
+                            <option value="New">New</option>
+                            <option value="Like New">Like New</option>
+                            <option value="Good">Good</option>
+                            <option value="Used">Used</option>
                         </select>
                     </div>
 
@@ -430,7 +435,9 @@ body::-webkit-scrollbar {
 
                         <input
                             type="number"
+                            name="price"
                             placeholder="e.g. 450"
+                            required
                         >
                     </div>
 
@@ -442,6 +449,7 @@ body::-webkit-scrollbar {
 
                         <input
                             type="number"
+                            name="originalPrice"
                             placeholder="e.g. 900"
                         >
                     </div>
@@ -457,8 +465,10 @@ body::-webkit-scrollbar {
 
                     <input
                         type="number"
+                        name="quantity"
                         placeholder="e.g. 1"
                         min="1"
+                        required
                     >
                 </div>
 
@@ -471,7 +481,9 @@ body::-webkit-scrollbar {
                     </label>
 
                     <textarea
+                        name="description"
                         placeholder="Describe your component..."
+                        required
                     ></textarea>
 
                 </div>
@@ -497,8 +509,10 @@ body::-webkit-scrollbar {
 
                     <input
                         type="file"
+                        name="images"
                         multiple
                         accept="image/*"
+                        
                     >
 
                 </div>
@@ -510,16 +524,35 @@ body::-webkit-scrollbar {
                 </h3>
 
 
-                <!-- Location -->
+                <!-- City -->
                 <div class="form-group">
 
                     <label>
-                        Location <span>*</span>
+                        City <span>*</span>
                     </label>
 
                     <input
                         type="text"
-                        placeholder="e.g. Pune, Maharashtra"
+                        name="city"
+                        placeholder="e.g. Pune"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- State -->
+                <div class="form-group">
+
+                    <label>
+                        State <span>*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        name="state"
+                        placeholder="e.g. Maharashtra"
+                        required
                     >
 
                 </div>
@@ -532,13 +565,19 @@ body::-webkit-scrollbar {
                         Date Purchased
                     </label>
 
-                    <input type="date">
+                    <input
+                        type="date"
+                        name="date"
+                    >
 
                 </div>
 
 
                 <!-- Submit -->
-                <button class="list-btn">
+                <button
+                    type="submit"
+                    class="list-btn"
+                >
                     List Component
                 </button>
 
@@ -548,4 +587,4 @@ body::-webkit-scrollbar {
 
     </div>
 
-</div>
+</form>
