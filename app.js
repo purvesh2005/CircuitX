@@ -2,7 +2,10 @@ const express = require("express");
 const app = express();
 const ejsMate = require("ejs-mate");
 const path = require("path");
+const session = require("express-session");
 
+
+// Routes
 const loginRoutes = require("./routes/loginRoutes");
 const registerRoutes = require("./routes/registerRoutes");
 const homeRoutes = require("./routes/homeRoutes");
@@ -14,14 +17,27 @@ const rootRoutes = require("./routes/rootRoutes");
 const productDetailRoutes = require("./routes/productDetailRoutes");
 const categoriesRoutes = require("./routes/categoriesRoutes");
 
+
 // EJS
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.engine("ejs", ejsMate);
 
+
 // Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
+
+
+// SESSION
+app.use(
+    session({
+        secret: "circuitx-secret",
+        resave: false,
+        saveUninitialized: false
+    })
+);
+
 
 // Routes
 app.use("/login", loginRoutes);
@@ -34,6 +50,7 @@ app.use("/browse", browseRoutes);
 app.use("/", rootRoutes);
 app.use("/productDetails", productDetailRoutes);
 app.use("/categories", categoriesRoutes);
+
 
 // Server
 app.listen(8080, () => {

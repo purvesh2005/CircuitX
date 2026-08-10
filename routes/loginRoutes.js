@@ -10,11 +10,13 @@ router.get("/",(req,res)=>{
 /*user is loging in here if user existed then redirect to home page 
 else redirect to registration page*/
 router.post("/", (req, res) => {
+
     const { email, password } = req.body;
 
     const sql = "SELECT * FROM users WHERE email = ?";
 
     db.query(sql, [email], (err, result) => {
+
         if (err) {
             console.log(err);
             return res.send("Database error");
@@ -36,11 +38,11 @@ router.post("/", (req, res) => {
             });
         }
 
-       //printing userId which user is logedin
-        const users = result[0];
-        console.log(users.user_id);
+        // Login successful
+        req.session.user_id = user.user_id;
 
-         // Login successful
+        console.log("Logged in User ID:", req.session.user_id);
+
         res.redirect("/home");
     });
 });

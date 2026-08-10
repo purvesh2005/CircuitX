@@ -634,180 +634,60 @@ body::-webkit-scrollbar {
                 </div>
 
 
-                <!-- Product 1 -->
+                <!-- Product -->
 
-                <div class="listing-row">
+               <% for (let product of products) { %>
 
-                    <div class="component-info">
+    <div class="listing-row">
 
-                        <div class="component-image">
-                            <img
-                                src="/images/arduino.png"
-                                alt="Arduino UNO R3"
-                            >
-                        </div>
+        <div class="component-info">
 
-                        <span>Arduino UNO R3</span>
+            <div class="component-image">
+                <img
+                    src="/images/arduino.png"
+                    alt="<%= product.product_name %>"
+                >
+            </div>
 
-                    </div>
+            <span>
+                <%= product.product_name %>
+            </span>
 
-                    <div class="price">
-                        ₹450
-                    </div>
+        </div>
 
-                    <div class="status available">
-                        Available
-                    </div>
+        <div class="price">
+            ₹<%= product.Price %>
+        </div>
 
-                    <div class="views">
-                        28
-                    </div>
+        <div class="status available">
+            Available
+        </div>
 
-                    <div class="actions">
+        <div class="views">
+            <%= product.views || 0 %>
+        </div>
 
-                        <button class="edit-btn">
-                            <i class="fa-solid fa-pen"></i>
-                        </button>
+        <div class="actions">
 
-                        <button class="delete-btn">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
+            <button
+                class="edit-btn"
+                type="button"
+            >
+                <i class="fa-solid fa-pen"></i>
+            </button>
 
-                    </div>
+            <button
+                class="delete-btn"
+                type="button"
+            >
+                <i class="fa-solid fa-trash"></i>
+            </button>
 
-                </div>
+        </div>
 
+    </div>
 
-                <!-- Product 2 -->
-
-                <div class="listing-row">
-
-                    <div class="component-info">
-
-                        <div class="component-image">
-                            <img
-                                src="/images/hc-sr04.png"
-                                alt="HC-SR04 Sensor"
-                            >
-                        </div>
-
-                        <span>HC-SR04 Sensor</span>
-
-                    </div>
-
-                    <div class="price">
-                        ₹60
-                    </div>
-
-                    <div class="status available">
-                        Available
-                    </div>
-
-                    <div class="views">
-                        15
-                    </div>
-
-                    <div class="actions">
-
-                        <button class="edit-btn">
-                            <i class="fa-solid fa-pen"></i>
-                        </button>
-
-                        <button class="delete-btn">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <!-- Product 3 -->
-
-                <div class="listing-row">
-
-                    <div class="component-info">
-
-                        <div class="component-image">
-                            <img
-                                src="/images/l298n.png"
-                                alt="L298N Motor Driver"
-                            >
-                        </div>
-
-                        <span>L298N Motor Driver</span>
-
-                    </div>
-
-                    <div class="price">
-                        ₹120
-                    </div>
-
-                    <div class="status sold">
-                        Sold
-                    </div>
-
-                    <div class="views">
-                        42
-                    </div>
-
-                    <div class="actions">
-
-                        <button class="edit-btn">
-                            <i class="fa-solid fa-pen"></i>
-                        </button>
-
-                        <button class="delete-btn">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <!-- Product 4 -->
-
-                <div class="listing-row">
-
-                    <div class="component-info">
-
-                        <div class="component-image">
-                            <img
-                                src="/images/lcd.png"
-                                alt="16x2 LCD Display"
-                            >
-                        </div>
-
-                        <span>16x2 LCD Display</span>
-
-                    </div>
-
-                    <div class="price">
-                        ₹100
-                    </div>
-
-                    <div class="status reserved">
-                        Reserved
-                    </div>
-
-                    <div class="views">
-                        10
-                    </div>
-
-                    <div class="actions">
-
-                        <button class="edit-btn">
-                            <i class="fa-solid fa-pen"></i>
-                        </button>
-
-                        <button class="delete-btn">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-
-                    </div>
-
-                </div>
+<% } %>
 
             </div>
 

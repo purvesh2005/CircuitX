@@ -12,7 +12,7 @@ router.get("/",(req,res)=>{
 router.post("/", (req, res) => {
 
     const created_at = new Date();
-    const seller_id = "10eefbd3-ceac-4fec-a5fb-e3139f6b65f7" ;
+    const seller_id = req.session.user_id ;
     const product_id = crypto.randomUUID();
 
     const {
