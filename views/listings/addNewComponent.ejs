@@ -359,8 +359,10 @@ body::-webkit-scrollbar {
 </style>
 
 <form
+    id="productForm"
     action="/sell"
     method="POST"
+    enctype="multipart/form-data"
 >
 
     <div class="form-card">
@@ -509,10 +511,9 @@ body::-webkit-scrollbar {
 
                     <input
                         type="file"
-                        name="images"
-                        multiple
-                        accept="image/*"
-                        
+                        name="image"
+                        accept="image/jpeg, image/jpg, image/png"
+                        required
                     >
 
                 </div>

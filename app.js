@@ -16,6 +16,7 @@ const browseRoutes = require("./routes/browseRoutes");
 const rootRoutes = require("./routes/rootRoutes");
 const productDetailRoutes = require("./routes/productDetailRoutes");
 const categoriesRoutes = require("./routes/categoriesRoutes");
+const editComponentRoutes = require("./routes/editComponentRoutes");
 
 
 // EJS
@@ -50,6 +51,7 @@ app.use("/browse", browseRoutes);
 app.use("/", rootRoutes);
 app.use("/productDetails", productDetailRoutes);
 app.use("/categories", categoriesRoutes);
+app.use("/editComponent", editComponentRoutes);
 
 
 // Server
