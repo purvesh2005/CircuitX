@@ -5,6 +5,7 @@ const crypto = require("crypto");
 const multer = require("multer");
 const imagekit = require("../config/imagekit");
 const { toFile } = require("@imagekit/nodejs");
+const sharp = require("sharp");
 
 // Store uploaded image temporarily in RAM
 const upload = multer({
@@ -65,18 +66,68 @@ router.post(
 
             }
 
+// Compress image before uploading to ImageKit
 
-            // Upload image to ImageKit
-            console.log("Starting ImageKit upload...");
+const MAX_SIZE = 2 * 1024 * 1024; // 2 MB
 
-                const uploadResponse = await imagekit.files.upload({
-                    file: await toFile(
-                     req.file.buffer,
-                     req.file.originalname
-                           ),
-                    fileName: req.file.originalname,
-                    folder: "/CircuitX/components"
-                });
+let quality = 80;
+let width = 1200;
+let compressedImage;
+
+while (true) {
+
+    compressedImage = await sharp(req.file.buffer)
+        .resize({
+            width: width,
+            height: width,
+            fit: "inside",
+            withoutEnlargement: true
+        })
+        .jpeg({
+            quality: quality
+        })
+        .toBuffer();
+
+    console.log(
+        `Quality: ${quality}, Width: ${width}, Size: ${(compressedImage.length / 1024 / 1024).toFixed(2)} MB`
+    );
+
+    // Stop when image is below 2 MB
+    if (compressedImage.length <= MAX_SIZE) {
+        break;
+    }
+
+    // First reduce quality
+    if (quality > 40) {
+        quality -= 10;
+    }
+
+    // Then reduce dimensions
+    else {
+        width -= 200;
+    }
+
+    // Safety condition
+    if (width < 400) {
+        return res
+            .status(400)
+            .send("Unable to compress image below 2 MB");
+    }
+}
+
+
+// Upload compressed image to ImageKit
+
+console.log("Starting ImageKit upload...");
+
+const uploadResponse = await imagekit.files.upload({
+    file: await toFile(
+        compressedImage,
+        `${product_id}.jpg`
+    ),
+    fileName: `${product_id}.jpg`,
+    folder: "/CircuitX/components"
+});
 
 console.log("ImageKit upload successful!");
 //geting img url and id
