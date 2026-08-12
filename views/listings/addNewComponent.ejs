@@ -406,6 +406,10 @@ body::-webkit-scrollbar {
                             <option value="Development Boards">Development Boards</option>
                             <option value="Resistors">Resistors</option>
                             <option value="Capacitors">Capacitors</option>
+                            <option value="Motors">Motors</option>
+                            <option value="Power Supply">Power Supply</option>
+                            <option value="ICs">ICs</option>
+                            <option value="Tools & Others">Tools & Others</option>
                         </select>
                     </div>
 
@@ -496,28 +500,42 @@ body::-webkit-scrollbar {
             <!-- RIGHT SIDE -->
             <div class="right-form">
 
-                <h3>Images</h3>
+               <div class="upload-box">
 
-                <!-- Image Upload -->
-                <div class="upload-box">
+    <i class="fa-solid fa-cloud-arrow-up"></i>
 
-                    <i class="fa-solid fa-cloud-arrow-up"></i>
+    <h4 id="uploadText">Upload Images</h4>
 
-                    <h4>Upload Images</h4>
+    <p id="uploadPara">Drag & drop or click to browse</p>
 
-                    <p>Drag & drop or click to browse</p>
+    <small id="uploadSmall">Up to 5mb image file</small>
 
-                    <small>Up to 5 images</small>
+    <input
+        type="file"
+        id="imageInput"
+        name="image"
+        accept="image/jpeg, image/jpg, image/png"
+        required
+        onchange="showFileName(this)"
+    >
 
-                    <input
-                        type="file"
-                        name="image"
-                        accept="image/jpeg, image/jpg, image/png"
-                        required
-                    >
+</div>
 
-                </div>
+<script>
+    function showFileName(input) {
 
+        const uploadText = document.getElementById("uploadText");
+
+        if (input.files.length === 1) {
+            uploadText.innerText = input.files[0].name + " selected";
+            uploadPara.innerText = "";
+            uploadSmall.innerText = "";
+        }
+        else {
+            uploadText.innerText = "Upload Images";
+        }
+    }
+</script>
 
                 <!-- Other Details -->
                 <h3 class="other-title">
@@ -569,6 +587,7 @@ body::-webkit-scrollbar {
                     <input
                         type="date"
                         name="date"
+                        required
                     >
 
                 </div>
@@ -589,3 +608,4 @@ body::-webkit-scrollbar {
     </div>
 
 </form>
+

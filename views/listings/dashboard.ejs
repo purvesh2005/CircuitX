@@ -187,14 +187,18 @@
 
 .listings-table {
     width: 100%;
-
+    max-height: 450px;
+    overflow-y: auto;
     border: 1px solid #eeeeee;
-
     border-radius: 6px;
-
-    overflow: hidden;
+      /* Hide scrollbar */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
+.listings-table::-webkit-scrollbar {
+    display: none;
+}
 
 /* Table Header */
 
@@ -223,6 +227,10 @@
     font-weight: 600;
 
     color: #333;
+
+    position: sticky;
+top: 0;
+z-index: 10;
 }
 
 
@@ -421,40 +429,6 @@
    VIEW ALL BUTTON
 ===================================== */
 
-.view-all-btn {
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    width: 130px;
-
-    height: 34px;
-
-    margin-top: 22px;
-
-    border: 1px solid #08a568;
-
-    border-radius: 5px;
-
-    color: #087d53;
-
-    background: white;
-
-    text-decoration: none;
-
-    font-size: 11px;
-
-    font-weight: 600;
-
-    transition: 0.2s;
-}
-
-
-.view-all-btn:hover {
-    background: #eaf8f3;
-}
 
 
 /* =====================================
@@ -691,13 +665,6 @@ body::-webkit-scrollbar {
 <% } %>
 
             </div>
-
-
-            <!-- View All -->
-
-            <a href="/myListings" class="view-all-btn">
-                View All Listings
-            </a>
 
         </main>
 

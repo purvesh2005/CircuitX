@@ -591,53 +591,73 @@ a {
    ===================================================== */
 
 .pagination {
-    display: flex;
+    width: 100%;
+    min-height: 36px;
 
+    display: flex;
     align-items: center;
     justify-content: center;
 
-    gap: 18px;
+    gap: 14px;
 
     margin-top: 35px;
-
     margin-bottom: 25px;
+
+    box-sizing: border-box;
 }
 
-.pagination a,
-.pagination button {
-    border: none;
-
-    background: transparent;
-
-    color: #4b5563;
-
-    font-size: 12px;
-
-    cursor: pointer;
-}
-
-.pagination .current {
+.pagination a {
     width: 32px;
     height: 32px;
 
     display: flex;
-
     align-items: center;
     justify-content: center;
 
-    background: #059669;
-
-    color: white;
-
+    border: none;
     border-radius: 5px;
 
+    background: transparent;
+
+    color: #4b5563;
+    font-size: 12px;
+    font-weight: 500;
+
+    text-decoration: none;
+
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.pagination a:hover {
+    color: #059669;
+}
+
+.pagination a.current {
+    background: #059669;
+    color: white;
     font-weight: 600;
 }
 
-.pagination button {
-    font-size: 22px;
+.pagination .page-arrow {
+    width: 24px;
+    height: 32px;
 
     color: #6b7280;
+    font-size: 22px;
+    font-weight: 400;
+}
+
+.pagination .page-arrow:hover {
+    color: #059669;
+}
+
+.pagination .dots {
+    width: 20px;
+    text-align: center;
+
+    color: #6b7280;
+    font-size: 12px;
 }
 
 
@@ -803,14 +823,14 @@ body::-webkit-scrollbar {
                     </li>
 
                     <li>
-                        <a href="/browse?category=Arduino">
-                            Arduino
+                        <a href="/browse?category=Resistors">
+                            Resistors
                         </a>
                     </li>
 
                     <li>
-                        <a href="/browse?category=ESP32">
-                            ESP32 / ESP8266
+                        <a href="/browse?category=Capacitors">
+                            Capacitors
                         </a>
                     </li>
 
@@ -845,8 +865,8 @@ body::-webkit-scrollbar {
                     </li>
 
                     <li>
-                        <a href="/browse?category=Robotics">
-                            Robotics
+                        <a href="/browse?category=Development Board">
+                            Development Board
                         </a>
                     </li>
 
@@ -878,7 +898,7 @@ body::-webkit-scrollbar {
                         <input
                             type="checkbox"
                             name="condition"
-                            value="all"
+                            value="All"
                             checked
                         >
                         All
@@ -888,7 +908,17 @@ body::-webkit-scrollbar {
                         <input
                             type="checkbox"
                             name="condition"
-                            value="like-new"
+                            value="New"
+                            
+                        >
+                        New
+                    </label>
+
+                    <label>
+                        <input
+                            type="checkbox"
+                            name="condition"
+                            value="Like New"
                         >
                         Like New
                     </label>
@@ -897,7 +927,7 @@ body::-webkit-scrollbar {
                         <input
                             type="checkbox"
                             name="condition"
-                            value="good"
+                            value="Good"
                         >
                         Good
                     </label>
@@ -906,9 +936,9 @@ body::-webkit-scrollbar {
                         <input
                             type="checkbox"
                             name="condition"
-                            value="average"
+                            value="Used"
                         >
-                        Average
+                        Used
                     </label>
 
                 </div>
@@ -1073,41 +1103,73 @@ body::-webkit-scrollbar {
 
             <!-- ================= PAGINATION ================= -->
 
-            <div class="pagination">
+            <%
+                const page = Number(currentPage) || 1;
+                const pages = Number(totalPages) || 1;
 
-                <button type="button">
-                    ‹
-                </button>
+                const categoryParam = encodeURIComponent(category || "");
+                const conditionParam = encodeURIComponent(condition || "");
 
-                <a href="#" class="current">
-                    1
-                </a>
+                function pageUrl(pageNumber) {
+                    return `?page=${pageNumber}&category=${categoryParam}&condition=${conditionParam}`;
+                }
+            %>
 
-                <a href="#">
-                    2
-                </a>
+            <% if (pages > 1) { %>
 
-                <a href="#">
-                    3
-                </a>
+                <div class="pagination">
 
-                <a href="#">
-                    4
-                </a>
+                    <% if (page > 1) { %>
+                        <a
+                            href="<%= pageUrl(page - 1) %>"
+                            class="page-arrow"
+                            aria-label="Previous page"
+                        >
+                            ‹
+                        </a>
+                    <% } %>
 
-                <span>
-                    ...
-                </span>
 
-                <a href="#">
-                    12
-                </a>
+                    <% for (let i = 1; i <= pages; i++) { %>
 
-                <button type="button">
-                    ›
-                </button>
+                        <% if (
+                            i === 1 ||
+                            i === pages ||
+                            (i >= page - 1 && i <= page + 1)
+                        ) { %>
 
-            </div>
+                            <a
+                                href="<%= pageUrl(i) %>"
+                                class="<%= page === i ? 'current' : '' %>"
+                            >
+                                <%= i %>
+                            </a>
+
+                        <% } else if (
+                            i === page - 2 ||
+                            i === page + 2
+                        ) { %>
+
+                            <span class="dots">...</span>
+
+                        <% } %>
+
+                    <% } %>
+
+
+                    <% if (page < pages) { %>
+                        <a
+                            href="<%= pageUrl(page + 1) %>"
+                            class="page-arrow"
+                            aria-label="Next page"
+                        >
+                            ›
+                        </a>
+                    <% } %>
+
+                </div>
+
+            <% } %>
 
         </main>
 

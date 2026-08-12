@@ -7,6 +7,13 @@ const imagekit = new ImageKit({
     privateKey: process.env.IMAGEKIT_PRIVATE_KEY
 });
 
+
+// =====================================================
+// DASHBOARD
+// Show logged-in user's products
+// Newest products first
+// =====================================================
+
 router.get("/", (req, res) => {
 
     console.log("SESSION:", req.session);
@@ -15,7 +22,17 @@ router.get("/", (req, res) => {
 
     console.log("USER ID:", userId);
 
-    const sql = "SELECT * FROM products WHERE seller_id = ?";
+    // User must be logged in
+    if (!userId) {
+        return res.redirect("/login");
+    }
+
+    const sql = `
+        SELECT *
+        FROM products
+        WHERE seller_id = ?
+        ORDER BY created_at DESC
+    `;
 
     db.query(sql, [userId], (err, products) => {
 
@@ -30,11 +47,16 @@ router.get("/", (req, res) => {
             activePage: "dashboard",
             products: products
         });
+
     });
+
 });
 
-//delete component
-// Delete component
+
+// =====================================================
+// DELETE COMPONENT
+// =====================================================
+
 router.post("/delete/:id", async (req, res) => {
 
     const { id } = req.params;
@@ -43,7 +65,10 @@ router.post("/delete/:id", async (req, res) => {
 
     try {
 
-        // 1. Get image_file_id first
+        // =================================================
+        // 1. Get image_file_id
+        // =================================================
+
         const selectSql = `
             SELECT image_file_id
             FROM products
@@ -53,23 +78,41 @@ router.post("/delete/:id", async (req, res) => {
         db.query(selectSql, [id], async (err, products) => {
 
             if (err) {
-                console.error("FETCH ERROR:", err);
-                return res.status(500).send("Database error");
+
+                console.error(
+                    "FETCH ERROR:",
+                    err
+                );
+
+                return res
+                    .status(500)
+                    .send("Database error");
             }
 
+
+            // Product doesn't exist
             if (products.length === 0) {
-                return res.status(404).send("Product not found");
+
+                return res
+                    .status(404)
+                    .send("Product not found");
             }
+
 
             const image_file_id = products[0].image_file_id;
 
 
+            // =================================================
             // 2. Delete image from ImageKit
+            // =================================================
+
             if (image_file_id) {
 
                 try {
 
-                    await imagekit.files.delete(image_file_id);
+                    await imagekit.files.delete(
+                        image_file_id
+                    );
 
                     console.log(
                         "Image deleted from ImageKit:",
@@ -83,57 +126,70 @@ router.post("/delete/:id", async (req, res) => {
                         imageError
                     );
 
-                    // Stop here so we don't delete the
-                    // product while leaving its image behind
+                    // Don't delete database record
+                    // if ImageKit deletion fails
+
                     return res
                         .status(500)
-                        .send("Failed to delete component image");
-
+                        .send(
+                            "Failed to delete component image"
+                        );
                 }
             }
 
 
+            // =================================================
             // 3. Delete product from MySQL
+            // =================================================
+
             const deleteSql = `
                 DELETE FROM products
                 WHERE product_id = ?
             `;
 
-            db.query(deleteSql, [id], (err, result) => {
+            db.query(
+                deleteSql,
+                [id],
+                (err, result) => {
 
-                if (err) {
+                    if (err) {
 
-                    console.error(
-                        "DELETE ERROR:",
-                        err
+                        console.error(
+                            "DELETE ERROR:",
+                            err
+                        );
+
+                        return res
+                            .status(500)
+                            .send("Database error");
+                    }
+
+
+                    console.log(
+                        "Delete result:",
+                        result
                     );
 
-                    return res
-                        .status(500)
-                        .send("Database error");
+
+                    // Product doesn't exist
+                    if (result.affectedRows === 0) {
+
+                        return res
+                            .status(404)
+                            .send("Product not found");
+                    }
+
+
+                    console.log(
+                        "Product and image deleted successfully"
+                    );
+
+
+                    // Back to dashboard
+                    res.redirect("/dashboard");
 
                 }
-
-                console.log(
-                    "Delete result:",
-                    result
-                );
-
-                if (result.affectedRows === 0) {
-
-                    return res
-                        .status(404)
-                        .send("Product not found");
-
-                }
-
-                console.log(
-                    "Product and image deleted successfully"
-                );
-
-                res.redirect("/dashboard");
-
-            });
+            );
 
         });
 
@@ -147,9 +203,9 @@ router.post("/delete/:id", async (req, res) => {
         res
             .status(500)
             .send("Failed to delete component");
-
     }
 
 });
+
 
 module.exports = router;
