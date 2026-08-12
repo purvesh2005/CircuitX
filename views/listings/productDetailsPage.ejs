@@ -829,8 +829,12 @@ body {
                         type="submit"
                         class="wishlist-btn"
                     >
-
-                        <i class="fa-regular fa-heart"></i>
+                        <% if (wishlist && wishlist.wishlist_id) { %>
+    <i class="fa-solid fa-heart"></i>
+<% } else { %>
+    <i class="fa-regular fa-heart"></i>
+<% } %>
+                        
 
                         <span>
                             Add to Wishlist

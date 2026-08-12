@@ -696,7 +696,7 @@ body::-webkit-scrollbar {
         <!-- Wishlist Count -->
 
         <div class="wishlist-count">
-            3 Items
+            <%=products.length%> Items
         </div>
 
 
@@ -704,35 +704,35 @@ body::-webkit-scrollbar {
 
         <div class="wishlist-items">
 
-
-            <!-- ITEM 1 -->
+            <%for(let product of products){%>
+            <!-- ITEM  -->
 
             <div class="wishlist-card">
 
                 <div class="wishlist-image">
                     <img
-                        src="/images/arduino.png"
-                        alt="Arduino UNO R3"
+                        src="<%=product.image_url%>"
+                        alt="<%=product.product_name%>"
                     >
                 </div>
 
 
                 <div class="wishlist-details">
 
-                    <h2>Arduino UNO R3</h2>
+                    <h2><%=product.product_name%></h2>
 
                     <div class="price-row">
 
                         <span class="current-price">
-                            ₹450
+                            <%=product.Price%>
                         </span>
 
                         <span class="old-price">
-                            ₹900
+                            <%=product.original_price%>
                         </span>
 
                         <span class="discount">
-                            50% OFF
+                            <%=product.discount%>% OFF
                         </span>
 
                     </div>
@@ -742,24 +742,26 @@ body::-webkit-scrollbar {
 
                         <span>
                             <i class="fa-regular fa-heart"></i>
-                            Like New
+                            <%=product.Product_condition%>
                         </span>
 
                         <span>
                             <i class="fa-regular fa-clock"></i>
-                            Used for 2 months
+                            <%= Math.floor(
+    (new Date() - new Date(product.purchase_date)) / (1000 * 60 * 60 * 24)
+) %> days ago
                         </span>
 
                         <span>
                             <i class="fa-solid fa-location-dot"></i>
-                            Pune, Maharashtra
+                            <%=product.city%>, <%=product.state%>
                         </span>
 
                     </div>
 
 
                     <p class="added-date">
-                        Added on 12 May 2024
+                        <%=product.created_at%>
                     </p>
 
                 </div>
@@ -775,7 +777,7 @@ body::-webkit-scrollbar {
                         <i class="fa-regular fa-trash-can"></i>
                     </button>
 
-                    <a href="/component/arduino-uno-r3"
+                    <a href="/component/<%=product.product_id%>"
                        class="details-btn">
                         View Details
                     </a>
@@ -783,169 +785,7 @@ body::-webkit-scrollbar {
                 </div>
 
             </div>
-
-
-            <!-- ITEM 2 -->
-
-            <div class="wishlist-card">
-
-                <div class="wishlist-image">
-                    <img
-                        src="/images/hc-sr04.png"
-                        alt="Ultrasonic Sensor HC-SR04"
-                    >
-                </div>
-
-
-                <div class="wishlist-details">
-
-                    <h2>Ultrasonic Sensor HC-SR04</h2>
-
-                    <div class="price-row">
-
-                        <span class="current-price">
-                            ₹120
-                        </span>
-
-                        <span class="old-price">
-                            ₹200
-                        </span>
-
-                        <span class="discount">
-                            40% OFF
-                        </span>
-
-                    </div>
-
-
-                    <div class="product-info">
-
-                        <span>
-                            <i class="fa-regular fa-heart"></i>
-                            Like New
-                        </span>
-
-                        <span>
-                            <i class="fa-regular fa-clock"></i>
-                            Used for 1 month
-                        </span>
-
-                        <span>
-                            <i class="fa-solid fa-location-dot"></i>
-                            Pune, Maharashtra
-                        </span>
-
-                    </div>
-
-
-                    <p class="added-date">
-                        Added on 10 May 2024
-                    </p>
-
-                </div>
-
-
-                <div class="wishlist-actions">
-
-                    <button class="heart-btn">
-                        <i class="fa-solid fa-heart"></i>
-                    </button>
-
-                    <button class="delete-item-btn">
-                        <i class="fa-regular fa-trash-can"></i>
-                    </button>
-
-                    <a href="/component/hc-sr04"
-                       class="details-btn">
-                        View Details
-                    </a>
-
-                </div>
-
-            </div>
-
-
-            <!-- ITEM 3 -->
-
-            <div class="wishlist-card">
-
-                <div class="wishlist-image">
-                    <img
-                        src="/images/soldering-iron.png"
-                        alt="Soldering Iron 25W"
-                    >
-                </div>
-
-
-                <div class="wishlist-details">
-
-                    <h2>Soldering Iron 25W</h2>
-
-                    <div class="price-row">
-
-                        <span class="current-price">
-                            ₹180
-                        </span>
-
-                        <span class="old-price">
-                            ₹300
-                        </span>
-
-                        <span class="discount">
-                            40% OFF
-                        </span>
-
-                    </div>
-
-
-                    <div class="product-info">
-
-                        <span>
-                            <i class="fa-regular fa-heart"></i>
-                            Like New
-                        </span>
-
-                        <span>
-                            <i class="fa-regular fa-clock"></i>
-                            Used for 3 months
-                        </span>
-
-                        <span>
-                            <i class="fa-solid fa-location-dot"></i>
-                            Pune, Maharashtra
-                        </span>
-
-                    </div>
-
-
-                    <p class="added-date">
-                        Added on 08 May 2024
-                    </p>
-
-                </div>
-
-
-                <div class="wishlist-actions">
-
-                    <button class="heart-btn">
-                        <i class="fa-solid fa-heart"></i>
-                    </button>
-
-                    <button class="delete-item-btn">
-                        <i class="fa-regular fa-trash-can"></i>
-                    </button>
-
-                    <a href="/component/soldering-iron"
-                       class="details-btn">
-                        View Details
-                    </a>
-
-                </div>
-
-            </div>
-
-        </div>
-
+            <%}%>
 
         <!-- ================= BOTTOM BANNER ================= -->
 
