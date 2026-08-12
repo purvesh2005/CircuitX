@@ -612,7 +612,8 @@ body::-webkit-scrollbar {
 
                <% for (let product of products) { %>
 
-    <div class="listing-row">
+    <div class="listing-row"
+     onclick="window.location.href='/productDetails/<%= product.product_id %>'">
 
         <div class="component-info">
 
