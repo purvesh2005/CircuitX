@@ -831,169 +831,37 @@ html::-webkit-scrollbar {
     </div>
 
 
-    <div class="listings">
+   <div class="listings">
 
-
-        <!-- Listing 1 -->
+    <% for (let product of products) { %>
 
         <div class="listing-card">
 
             <div class="listing-image">
-
-                <img src="/images/aurdino.png"
-                     alt="Arduino UNO R3">
+                <img src="<%= product.image_url %>"
+                     alt="<%= product.product_name %>">
 
                 <button class="wishlist">
                     <i class="fa-regular fa-heart"></i>
                 </button>
-
             </div>
 
             <div class="listing-info">
 
-                <h3>Arduino UNO R3</h3>
+                <h3><%= product.product_name %></h3>
 
                 <div class="listing-bottom">
-
-                    <strong>₹450</strong>
-
-                    <span>80% OFF</span>
-
+                    <strong>₹<%= product.Price %></strong>
+                    <span><%= product.discount %>% OFF</span>
                 </div>
 
             </div>
 
         </div>
 
+    <% } %>
 
-        <!-- Listing 2 -->
-
-        <div class="listing-card">
-
-            <div class="listing-image">
-
-                <img src="/images/sensors.png"
-                     alt="HC-SR04 Sensor">
-
-                <button class="wishlist">
-                    <i class="fa-regular fa-heart"></i>
-                </button>
-
-            </div>
-
-            <div class="listing-info">
-
-                <h3>HC-SR04 Sensor</h3>
-
-                <div class="listing-bottom">
-
-                    <strong>₹80</strong>
-
-                    <span>47% OFF</span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- Listing 3 -->
-
-        <div class="listing-card">
-
-            <div class="listing-image">
-
-                <img src="/images/motor.png"
-                     alt="L298N Motor Driver">
-
-                <button class="wishlist">
-                    <i class="fa-regular fa-heart"></i>
-                </button>
-
-            </div>
-
-            <div class="listing-info">
-
-                <h3>L298N Motor Driver</h3>
-
-                <div class="listing-bottom">
-
-                    <strong>₹120</strong>
-
-                    <span>62% OFF</span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- Listing 4 -->
-
-        <div class="listing-card">
-
-            <div class="listing-image">
-
-                <img src="/images/esp32.png"
-                     alt="NodeMCU ESP8266">
-
-                <button class="wishlist">
-                    <i class="fa-regular fa-heart"></i>
-                </button>
-
-            </div>
-
-            <div class="listing-info">
-
-                <h3>NodeMCU ESP8266</h3>
-
-                <div class="listing-bottom">
-
-                    <strong>₹220</strong>
-
-                    <span>65% OFF</span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- Listing 5 -->
-
-        <div class="listing-card">
-
-            <div class="listing-image">
-
-                <img src="/images/lcd.png"
-                     alt="16x2 LCD Display">
-
-                <button class="wishlist">
-                    <i class="fa-regular fa-heart"></i>
-                </button>
-
-            </div>
-
-            <div class="listing-info">
-
-                <h3>16x2 LCD Display</h3>
-
-                <div class="listing-bottom">
-
-                    <strong>₹100</strong>
-
-                    <span>50% OFF</span>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
+</div>
 
 </section>
 

@@ -153,6 +153,11 @@ console.log("Image URL:", image_url);
                 date
             } = req.body;
 
+            const num = 100-((price/originalPrice)*100);
+
+            const discount = Number(num.toFixed(2));
+
+
 
             // Insert product into MySQL
             const sql = `
@@ -171,9 +176,10 @@ console.log("Image URL:", image_url);
                     state,
                     purchase_date,
                     image_url,
-                    image_file_id
+                    image_file_id,
+                    discount
                 )
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             `;
 
 
@@ -191,7 +197,8 @@ console.log("Image URL:", image_url);
                 state,
                 date || null,
                 image_url,
-                image_file_id
+                image_file_id,
+                discount
             ];
 
 

@@ -619,7 +619,7 @@ body {
                 <div class="main-image">
 
                     <img
-                        src="/images/aurdino.png"
+                        src="<%=product.image_url%>"
                         alt="Arduino UNO R3"
                     >
 
@@ -666,7 +666,7 @@ body {
                     </del>
 
                     <span class="discount">
-                        <%=(100-(((product.Price)/(product.original_price))*100))%> %OFF
+                        <%= product.discount %> %OFF
                     </span>
 
                     <span class="stock">
