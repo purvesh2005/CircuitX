@@ -506,6 +506,23 @@ a {
     color: #ef4444;
 }
 
+.discount-badge {
+    position: absolute;
+
+    left: 10px;
+    top: 10px;
+
+    padding: 4px 8px;
+
+    background: #ef4444;
+    color: white;
+
+    border-radius: 4px;
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
 
 /* =====================================================
    PRODUCT INFORMATION
@@ -784,14 +801,17 @@ body::-webkit-scrollbar {
 
     <div class="top-section">
 
-        <div class="search-box">
+        <form class="search-box" action="/browse" method="GET">
             <input
                 type="text"
+                name="search"
                 placeholder="Search components, e.g. Arduino UNO"
+                value="<%= search || '' %>"
             >
-
-            <button type="button">⌕</button>
-        </div>
+            <input type="hidden" name="category" value="<%= category || '' %>">
+            <input type="hidden" name="condition" value="<%= condition || '' %>">
+            <button type="submit">⌕</button>
+        </form>
 
         <a href="/sell" class="sell-btn">
             Sell Component
@@ -816,64 +836,46 @@ body::-webkit-scrollbar {
 
                 <ul class="category-list">
 
-                    <li class="selected">
-                        <a href="/browse">
+                    <li class="<%= !category ? 'selected' : '' %>">
+                        <a href="/browse?search=<%= encodeURIComponent(search || '') %>">
                             All Categories
                         </a>
                     </li>
 
-                    <li>
-                        <a href="/browse?category=Resistors">
-                            Resistors
-                        </a>
+                    <li class="<%= category === 'Resistors' ? 'selected' : '' %>">
+                        <a href="/browse?category=Resistors&search=<%= encodeURIComponent(search || '') %>">Resistors</a>
                     </li>
 
-                    <li>
-                        <a href="/browse?category=Capacitors">
-                            Capacitors
-                        </a>
+                    <li class="<%= category === 'Capacitors' ? 'selected' : '' %>">
+                        <a href="/browse?category=Capacitors&search=<%= encodeURIComponent(search || '') %>">Capacitors</a>
                     </li>
 
-                    <li>
-                        <a href="/browse?category=Sensors">
-                            Sensors
-                        </a>
+                    <li class="<%= category === 'Sensors' ? 'selected' : '' %>">
+                        <a href="/browse?category=Sensors&search=<%= encodeURIComponent(search || '') %>">Sensors</a>
                     </li>
 
-                    <li>
-                        <a href="/browse?category=Motors">
-                            Motors
-                        </a>
+                    <li class="<%= category === 'Motors' ? 'selected' : '' %>">
+                        <a href="/browse?category=Motors&search=<%= encodeURIComponent(search || '') %>">Motors</a>
                     </li>
 
-                    <li>
-                        <a href="/browse?category=Power Supply">
-                            Power Supply
-                        </a>
+                    <li class="<%= category === 'Power Supply' ? 'selected' : '' %>">
+                        <a href="/browse?category=Power%20Supply&search=<%= encodeURIComponent(search || '') %>">Power Supply</a>
                     </li>
 
-                    <li>
-                        <a href="/browse?category=ICs">
-                            ICs
-                        </a>
+                    <li class="<%= category === 'ICs' ? 'selected' : '' %>">
+                        <a href="/browse?category=ICs&search=<%= encodeURIComponent(search || '') %>">ICs</a>
                     </li>
 
-                    <li>
-                        <a href="/browse?category=Microcontrollers">
-                            Microcontrollers
-                        </a>
+                    <li class="<%= category === 'Microcontrollers' ? 'selected' : '' %>">
+                        <a href="/browse?category=Microcontrollers&search=<%= encodeURIComponent(search || '') %>">Microcontrollers</a>
                     </li>
 
-                    <li>
-                        <a href="/browse?category=Development Board">
-                            Development Board
-                        </a>
+                    <li class="<%= category === 'Development Boards' ? 'selected' : '' %>">
+                        <a href="/browse?category=Development%20Boards&search=<%= encodeURIComponent(search || '') %>">Development Board</a>
                     </li>
 
-                    <li>
-                        <a href="/browse?category=Others">
-                            Tools & Others
-                        </a>
+                    <li class="<%= category === 'Tools & Others' ? 'selected' : '' %>">
+                        <a href="/browse?category=Tools%20%26%20Others&search=<%= encodeURIComponent(search || '') %>">Tools & Others</a>
                     </li>
 
                 </ul>
@@ -883,131 +885,137 @@ body::-webkit-scrollbar {
 
             <!-- ================= FILTERS ================= -->
 
-            <section class="filter-section">
+            <form action="/browse" method="GET">
 
-                <h3>Filters</h3>
+                <input type="hidden" name="search" value="<%= search || '' %>">
+                <input type="hidden" name="category" value="<%= category || '' %>">
 
+                <section class="filter-section">
 
-                <!-- Condition -->
-
-                <div class="filter-group">
-
-                    <h4>Condition</h4>
-
-                    <label>
-                        <input
-                            type="checkbox"
-                            name="condition"
-                            value="All"
-                            checked
-                        >
-                        All
-                    </label>
-
-                    <label>
-                        <input
-                            type="checkbox"
-                            name="condition"
-                            value="New"
-                            
-                        >
-                        New
-                    </label>
-
-                    <label>
-                        <input
-                            type="checkbox"
-                            name="condition"
-                            value="Like New"
-                        >
-                        Like New
-                    </label>
-
-                    <label>
-                        <input
-                            type="checkbox"
-                            name="condition"
-                            value="Good"
-                        >
-                        Good
-                    </label>
-
-                    <label>
-                        <input
-                            type="checkbox"
-                            name="condition"
-                            value="Used"
-                        >
-                        Used
-                    </label>
-
-                </div>
+                    <h3>Filters</h3>
 
 
-                <!-- Price Range -->
+                    <!-- Condition -->
 
-                <div class="filter-group">
+                    <div class="filter-group">
 
-                    <h4>Price Range</h4>
+                        <h4>Condition</h4>
 
-                    <input
-                        type="range"
-                        min="0"
-                        max="5000"
-                        value="5000"
-                        class="price-range"
-                    >
+                        <label>
+                            <input
+                                type="radio"
+                                name="condition"
+                                value=""
+                                <%= !condition ? 'checked' : '' %>
+                            >
+                            All
+                        </label>
 
-                    <div class="price-values">
-                        <span>₹0</span>
-                        <span>₹5000+</span>
+                        <label>
+                            <input
+                                type="radio"
+                                name="condition"
+                                value="New"
+                                <%= condition === 'New' ? 'checked' : '' %>
+                            >
+                            New
+                        </label>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="condition"
+                                value="Like New"
+                                <%= condition === 'Like New' ? 'checked' : '' %>
+                            >
+                            Like New
+                        </label>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="condition"
+                                value="Good"
+                                <%= condition === 'Good' ? 'checked' : '' %>
+                            >
+                            Good
+                        </label>
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="condition"
+                                value="Used"
+                                <%= condition === 'Used' ? 'checked' : '' %>
+                            >
+                            Used
+                        </label>
+
                     </div>
 
-                </div>
+
+                    <!-- Price Range -->
+
+                    <div class="filter-group">
+
+                        <h4>Max Price</h4>
+
+                        <input
+                            type="number"
+                            name="maxPrice"
+                            min="0"
+                            placeholder="e.g. 5000"
+                            value="<%= maxPrice || '' %>"
+                            class="price-range"
+                        >
+
+                    </div>
 
 
-                <!-- Location -->
+                    <!-- Location -->
 
-                <div class="filter-group">
+                    <div class="filter-group">
 
-                    <h4>Location</h4>
+                        <h4>Location</h4>
 
-                    <select name="location">
+                        <select name="location">
 
-                        <option value="">
-                            Select location
-                        </option>
+                            <option value="">
+                                Select location
+                            </option>
 
-                        <option value="Pune">
-                            Pune
-                        </option>
+                            <option value="Pune" <%= location === 'Pune' ? 'selected' : '' %>>
+                                Pune
+                            </option>
 
-                        <option value="Mumbai">
-                            Mumbai
-                        </option>
+                            <option value="Mumbai" <%= location === 'Mumbai' ? 'selected' : '' %>>
+                                Mumbai
+                            </option>
 
-                        <option value="Delhi">
-                            Delhi
-                        </option>
+                            <option value="Delhi" <%= location === 'Delhi' ? 'selected' : '' %>>
+                                Delhi
+                            </option>
 
-                        <option value="Bangalore">
-                            Bangalore
-                        </option>
+                            <option value="Bangalore" <%= location === 'Bangalore' ? 'selected' : '' %>>
+                                Bangalore
+                            </option>
 
-                        <option value="Hyderabad">
-                            Hyderabad
-                        </option>
+                            <option value="Hyderabad" <%= location === 'Hyderabad' ? 'selected' : '' %>>
+                                Hyderabad
+                            </option>
 
-                    </select>
+                        </select>
 
-                </div>
+                    </div>
 
 
-                <button type="button" class="filter-btn">
-                    Apply Filters
-                </button>
+                    <button type="submit" class="filter-btn">
+                        Apply Filters
+                    </button>
 
-            </section>
+                </section>
+
+            </form>
 
         </aside>
 
@@ -1027,21 +1035,28 @@ body::-webkit-scrollbar {
 
                     <span>Sort by:</span>
 
-                    <select name="sort">
+                    <form action="/browse" method="GET" style="margin:0;display:inline;">
+                        <input type="hidden" name="search" value="<%= search || '' %>">
+                        <input type="hidden" name="category" value="<%= category || '' %>">
+                        <input type="hidden" name="condition" value="<%= condition || '' %>">
+                        <input type="hidden" name="location" value="<%= location || '' %>">
+                        <input type="hidden" name="maxPrice" value="<%= maxPrice || '' %>">
+                        <select name="sort" onchange="this.form.submit()">
 
-                        <option value="newest">
-                            Newest First
-                        </option>
+                            <option value="newest" <%= sort === 'newest' || !sort ? 'selected' : '' %>>
+                                Newest First
+                            </option>
 
-                        <option value="price-low">
-                            Price: Low to High
-                        </option>
+                            <option value="price-low" <%= sort === 'price-low' ? 'selected' : '' %>>
+                                Price: Low to High
+                            </option>
 
-                        <option value="price-high">
-                            Price: High to Low
-                        </option>
+                            <option value="price-high" <%= sort === 'price-high' ? 'selected' : '' %>>
+                                Price: High to Low
+                            </option>
 
-                    </select>
+                        </select>
+                    </form>
 
                 </div>
 
@@ -1051,9 +1066,18 @@ body::-webkit-scrollbar {
             <!-- ================= PRODUCT GRID ================= -->
 
             <div class="product-grid">
+
+                <% if (products.length === 0) { %>
+
+                    <p style="grid-column:1/-1;text-align:center;color:#6b7280;padding:60px 0;font-size:14px;">
+                        No components found. Try adjusting your filters.
+                    </p>
+
+                <% } %>
+
                 <% for (let product of products) { %>
 
-    <a
+       <a
         href="/productDetails/<%= product.product_id %>"
         class="product-card"
     >
@@ -1062,7 +1086,19 @@ body::-webkit-scrollbar {
 
            <img src="<%= product.image_url %>" alt="<%= product.product_name %>">
 
-            
+            <form action="/wishlist/add" method="POST" style="margin:0;"
+                  onclick="event.stopPropagation();">
+                <input type="hidden" name="product_id" value="<%= product.product_id %>">
+                <button class="wishlist-btn" type="submit">
+                    <i class="fa-regular fa-heart"></i>
+                </button>
+            </form>
+
+            <% if (product.discount > 0) { %>
+            <span class="discount-badge">
+                <%= product.discount %>% OFF
+            </span>
+            <% } %>
 
         </div>
 
@@ -1081,6 +1117,10 @@ body::-webkit-scrollbar {
                 <del>
                     ₹<%= product.original_price %>
                 </del>
+
+                <% if (product.discount > 0) { %>
+                <span><%= product.discount %>% OFF</span>
+                <% } %>
 
             </div>
 
@@ -1104,9 +1144,13 @@ body::-webkit-scrollbar {
 
                 const categoryParam = encodeURIComponent(category || "");
                 const conditionParam = encodeURIComponent(condition || "");
+                const searchParam = encodeURIComponent(search || "");
+                const locationParam = encodeURIComponent(location || "");
+                const maxPriceParam = encodeURIComponent(maxPrice || "");
+                const sortParam = encodeURIComponent(sort || "");
 
                 function pageUrl(pageNumber) {
-                    return `?page=${pageNumber}&category=${categoryParam}&condition=${conditionParam}`;
+                    return `?page=${pageNumber}&category=${categoryParam}&condition=${conditionParam}&search=${searchParam}&location=${locationParam}&maxPrice=${maxPriceParam}&sort=${sortParam}`;
                 }
             %>
 

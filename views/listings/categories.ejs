@@ -413,7 +413,7 @@ body::-webkit-scrollbar {
 
                 <h3>Microcontrollers</h3>
 
-                <p>125 Items</p>
+                <p><%= counts["Microcontrollers"] || 0 %> Items</p>
 
                 <a href="/browse?category=Microcontrollers"
                    class="category-btn">
@@ -433,7 +433,7 @@ body::-webkit-scrollbar {
 
                 <h3>Resistors & Capacitors</h3>
 
-                <p>210 Items</p>
+                <p><%= counts["Resistors"] || 0 %> Items</p>
 
                 <a href="/browse?category=Resistors"
                    class="category-btn">
@@ -444,18 +444,18 @@ body::-webkit-scrollbar {
             </div>
 
 
-            <!-- Semiconductors -->
+            <!-- ICs -->
             <div class="category-card">
 
                 <div class="category-icon">
                     <i class="fa-solid fa-plug"></i>
                 </div>
 
-                <h3>Semiconductors</h3>
+                <h3>ICs</h3>
 
-                <p>95 Items</p>
+                <p><%= counts["ICs"] || 0 %> Items</p>
 
-                <a href="/browse?category=Semiconductors"
+                <a href="/browse?category=ICs"
                    class="category-btn">
                     View All
                     <i class="fa-solid fa-chevron-right"></i>
@@ -464,18 +464,18 @@ body::-webkit-scrollbar {
             </div>
 
 
-            <!-- Connectors -->
+            <!-- Capacitors -->
             <div class="category-card">
 
                 <div class="category-icon">
                     <i class="fa-solid fa-ethernet"></i>
                 </div>
 
-                <h3>Connectors</h3>
+                <h3>Capacitors</h3>
 
-                <p>80 Items</p>
+                <p><%= counts["Capacitors"] || 0 %> Items</p>
 
-                <a href="/browse?category=Connectors"
+                <a href="/browse?category=Capacitors"
                    class="category-btn">
                     View All
                     <i class="fa-solid fa-chevron-right"></i>
@@ -493,7 +493,7 @@ body::-webkit-scrollbar {
 
                 <h3>Sensors</h3>
 
-                <p>145 Items</p>
+                <p><%= counts["Sensors"] || 0 %> Items</p>
 
                 <a href="/browse?category=Sensors"
                    class="category-btn">
@@ -504,18 +504,18 @@ body::-webkit-scrollbar {
             </div>
 
 
-            <!-- Modules -->
+            <!-- Development Boards -->
             <div class="category-card">
 
                 <div class="category-icon">
                     <i class="fa-solid fa-memory"></i>
                 </div>
 
-                <h3>Modules</h3>
+                <h3>Development Boards</h3>
 
-                <p>110 Items</p>
+                <p><%= counts["Development Boards"] || 0 %> Items</p>
 
-                <a href="/browse?category=Modules"
+                <a href="/browse?category=Development%20Boards"
                    class="category-btn">
                     View All
                     <i class="fa-solid fa-chevron-right"></i>
@@ -533,7 +533,7 @@ body::-webkit-scrollbar {
 
                 <h3>Power Supply</h3>
 
-                <p>60 Items</p>
+                <p><%= counts["Power Supply"] || 0 %> Items</p>
 
                 <a href="/browse?category=Power%20Supply"
                    class="category-btn">
@@ -544,18 +544,18 @@ body::-webkit-scrollbar {
             </div>
 
 
-            <!-- Displays -->
+            <!-- Tools & Others -->
             <div class="category-card">
 
                 <div class="category-icon">
                     <i class="fa-solid fa-tv"></i>
                 </div>
 
-                <h3>Displays</h3>
+                <h3>Tools & Others</h3>
 
-                <p>75 Items</p>
+                <p><%= counts["Tools & Others"] || 0 %> Items</p>
 
-                <a href="/browse?category=Displays"
+                <a href="/browse?category=Tools%20%26%20Others"
                    class="category-btn">
                     View All
                     <i class="fa-solid fa-chevron-right"></i>
@@ -564,18 +564,18 @@ body::-webkit-scrollbar {
             </div>
 
 
-            <!-- Switches -->
+            <!-- Resistors -->
             <div class="category-card">
 
                 <div class="category-icon">
                     <i class="fa-solid fa-toggle-on"></i>
                 </div>
 
-                <h3>Switches & Relays</h3>
+                <h3>Resistors</h3>
 
-                <p>50 Items</p>
+                <p><%= counts["Resistors"] || 0 %> Items</p>
 
-                <a href="/browse?category=Switches"
+                <a href="/browse?category=Resistors"
                    class="category-btn">
                     View All
                     <i class="fa-solid fa-chevron-right"></i>
@@ -593,7 +593,7 @@ body::-webkit-scrollbar {
 
                 <h3>Motors</h3>
 
-                <p>40 Items</p>
+                <p><%= counts["Motors"] || 0 %> Items</p>
 
                 <a href="/browse?category=Motors"
                    class="category-btn">
@@ -603,45 +603,6 @@ body::-webkit-scrollbar {
 
             </div>
 
-
-            <!-- Development Boards -->
-            <div class="category-card">
-
-                <div class="category-icon">
-                    <i class="fa-solid fa-code"></i>
-                </div>
-
-                <h3>Development Boards</h3>
-
-                <p>70 Items</p>
-
-                <a href="/browse?category=Development%20Boards"
-                   class="category-btn">
-                    View All
-                    <i class="fa-solid fa-chevron-right"></i>
-                </a>
-
-            </div>
-
-
-            <!-- Tools -->
-            <div class="category-card">
-
-                <div class="category-icon">
-                    <i class="fa-solid fa-screwdriver-wrench"></i>
-                </div>
-
-                <h3>Tools & Accessories</h3>
-
-                <p>65 Items</p>
-
-                <a href="/browse?category=Tools"
-                   class="category-btn">
-                    View All
-                    <i class="fa-solid fa-chevron-right"></i>
-                </a>
-
-            </div>
 
         </div>
 

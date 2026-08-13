@@ -250,6 +250,65 @@ body {
     }
 }
 
+/* ================= AUTH BUTTONS ================= */
+
+.logout-link {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 6px;
+
+    color: #6b7280;
+    font-size: 14px;
+
+    text-decoration: none;
+
+    transition: 0.2s;
+}
+
+.logout-link:hover {
+    background: #fff1f1;
+    color: #e55b5b;
+}
+
+.auth-btn {
+    padding: 9px 16px;
+
+    border-radius: 6px;
+
+    text-decoration: none;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    transition: 0.2s;
+}
+
+.login-btn-nav {
+    border: 1px solid #159b69;
+    color: #159b69;
+    background: white;
+}
+
+.login-btn-nav:hover {
+    background: #f0f8f5;
+}
+
+.register-btn-nav {
+    background: #159b69;
+    color: white;
+    border: 1px solid #159b69;
+}
+
+.register-btn-nav:hover {
+    background: #078b58;
+}
+
+
 /* ================= RESPONSIVE ================= */
 
 @media (max-width: 900px) {

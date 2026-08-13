@@ -533,7 +533,7 @@ body::-webkit-scrollbar {
                 <span>Dashboard</span>
             </a>
 
-            <a href="/myListings" class="sidebar-item">
+            <a href="/dashboard" class="sidebar-item">
                 <i class="fa-regular fa-rectangle-list"></i>
                 <span>My Listings</span>
             </a>
@@ -543,24 +543,19 @@ body::-webkit-scrollbar {
                 <span>Wishlist</span>
             </a>
 
-            <a href="/messages" class="sidebar-item">
-                <i class="fa-regular fa-message"></i>
-                <span>Messages</span>
+            <a href="/browse" class="sidebar-item">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <span>Browse</span>
             </a>
 
-            <a href="/orders" class="sidebar-item">
-                <i class="fa-regular fa-clipboard"></i>
-                <span>Orders</span>
+            <a href="/sell" class="sidebar-item">
+                <i class="fa-solid fa-plus"></i>
+                <span>Sell Component</span>
             </a>
 
-            <a href="/profile" class="sidebar-item">
-                <i class="fa-regular fa-user"></i>
-                <span>Profile</span>
-            </a>
-
-            <a href="/settings" class="sidebar-item">
-                <i class="fa-solid fa-gear"></i>
-                <span>Settings</span>
+            <a href="/categories" class="sidebar-item">
+                <i class="fa-solid fa-tags"></i>
+                <span>Categories</span>
             </a>
 
             <a href="/logout" class="sidebar-item logout">
@@ -610,6 +605,17 @@ body::-webkit-scrollbar {
 
                 <!-- Product -->
 
+               <% if (products.length === 0) { %>
+
+                <div style="text-align:center;padding:50px 20px;">
+                    <i class="fa-regular fa-rectangle-list" style="font-size:40px;color:#d1d5db;margin-bottom:12px;display:block;"></i>
+                    <h3 style="font-size:15px;color:#374151;margin-bottom:6px;">No listings yet</h3>
+                    <p style="font-size:11px;color:#6b7280;margin-bottom:15px;">Start selling your components today!</p>
+                    <a href="/sell" class="add-component-btn" style="display:inline-flex;">Add New Component</a>
+                </div>
+
+               <% } %>
+
                <% for (let product of products) { %>
 
     <div class="listing-row"
@@ -641,13 +647,14 @@ body::-webkit-scrollbar {
 
         <div class="actions">
 
-           <a href="/editComponent/<%= product.product_id %>">
+           <a href="/editComponent/<%= product.product_id %>" onclick="event.stopPropagation()">
     <button class="edit-btn" type="button">
         <i class="fa-solid fa-pen"></i>
     </button>
 </a>
 
             <form action="/dashboard/delete/<%= product.product_id %>" method="POST"
+      onclick="event.stopPropagation()"
       onsubmit="return confirm('Are you sure you want to delete this component?');">
 
     <button

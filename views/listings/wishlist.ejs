@@ -685,10 +685,14 @@ body::-webkit-scrollbar {
                 <p>Your saved components</p>
             </div>
 
-            <button class="remove-all-btn">
-                <i class="fa-regular fa-trash-can"></i>
-                Remove All
-            </button>
+            <% if (products.length > 0) { %>
+            <form action="/wishlist/delete-all" method="POST">
+                <button class="remove-all-btn">
+                    <i class="fa-regular fa-trash-can"></i>
+                    Remove All
+                </button>
+            </form>
+            <% } %>
 
         </div>
 
@@ -703,6 +707,17 @@ body::-webkit-scrollbar {
         <!-- ================= WISHLIST ITEMS ================= -->
 
         <div class="wishlist-items">
+
+            <% if (products.length === 0) { %>
+
+                <div style="text-align:center;padding:60px 20px;">
+                    <i class="fa-regular fa-heart" style="font-size:48px;color:#d1d5db;margin-bottom:15px;display:block;"></i>
+                    <h3 style="font-size:16px;color:#374151;margin-bottom:8px;">Your wishlist is empty</h3>
+                    <p style="font-size:12px;color:#6b7280;margin-bottom:20px;">Save components you love and find them here later.</p>
+                    <a href="/browse" class="browse-btn" style="display:inline-flex;">Browse Components</a>
+                </div>
+
+            <% } %>
 
             <%for(let product of products){%>
             <!-- ITEM  -->
@@ -724,11 +739,11 @@ body::-webkit-scrollbar {
                     <div class="price-row">
 
                         <span class="current-price">
-                            <%=product.Price%>
+                            ₹<%=product.Price%>
                         </span>
 
                         <span class="old-price">
-                            <%=product.original_price%>
+                            ₹<%=product.original_price%>
                         </span>
 
                         <span class="discount">
@@ -769,15 +784,13 @@ body::-webkit-scrollbar {
 
                 <div class="wishlist-actions">
 
-                    <button class="heart-btn">
-                        <i class="fa-solid fa-heart"></i>
-                    </button>
+                    <form action="/wishlist/delete/<%=product.product_id%>" method="POST" style="margin:0;display:inline;">
+                        <button class="delete-item-btn">
+                            <i class="fa-regular fa-trash-can"></i>
+                        </button>
+                    </form>
 
-                    <button class="delete-item-btn">
-                        <i class="fa-regular fa-trash-can"></i>
-                    </button>
-
-                    <a href="/component/<%=product.product_id%>"
+                    <a href="/productDetails/<%=product.product_id%>"
                        class="details-btn">
                         View Details
                     </a>

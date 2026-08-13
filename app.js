@@ -1,8 +1,10 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const ejsMate = require("ejs-mate");
 const path = require("path");
 const session = require("express-session");
+const db = require("./db/connection");
 
 
 // Routes
@@ -33,11 +35,37 @@ app.use(express.static(path.join(__dirname, "public")));
 // SESSION
 app.use(
     session({
-        secret: "circuitx-secret",
+        secret: process.env.SESSION_SECRET || "circuitx-secret",
         resave: false,
         saveUninitialized: false
     })
 );
+
+
+// =====================================================
+// GLOBAL MIDDLEWARE - Pass logged-in user to all views
+// =====================================================
+app.use((req, res, next) => {
+
+    res.locals.user = null;
+
+    if (req.session.user_id) {
+
+        const sql = "SELECT user_id, name, email, college, phone FROM users WHERE user_id = ?";
+
+        db.query(sql, [req.session.user_id], (err, results) => {
+
+            if (!err && results.length > 0) {
+                res.locals.user = results[0];
+            }
+
+            next();
+        });
+
+    } else {
+        next();
+    }
+});
 
 
 // Routes

@@ -35,6 +35,11 @@ const upload = multer({
 // Sell route
 router.get("/", (req, res) => {
 
+    // User must be logged in to sell
+    if (!req.session.user_id) {
+        return res.redirect("/login");
+    }
+
     res.render(
         "listings/addNewComponent.ejs",
         {

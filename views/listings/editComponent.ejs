@@ -359,8 +359,9 @@ body::-webkit-scrollbar {
 </style>
 
 <form
-    action="/sell"
+    action="/editComponent/<%= products.product_id %>"
     method="POST"
+    enctype="multipart/form-data"
 >
 
     <div class="form-card">
@@ -384,7 +385,7 @@ body::-webkit-scrollbar {
                         type="text"
                         name="title"
                         placeholder="e.g. Arduino UNO R3"
-                        value=<%=products.product_name%>
+                        value="<%=products.product_name%>"
                         required
                     >
                 </div>
@@ -399,12 +400,16 @@ body::-webkit-scrollbar {
                         </label>
 
                         <select name="category" required>
-                            <option value=""><%=products.category%></option>
+                            <option value="<%=products.category%>"><%=products.category%></option>
                             <option value="Microcontrollers">Microcontrollers</option>
                             <option value="Sensors">Sensors</option>
                             <option value="Development Boards">Development Boards</option>
                             <option value="Resistors">Resistors</option>
                             <option value="Capacitors">Capacitors</option>
+                            <option value="Motors">Motors</option>
+                            <option value="Power Supply">Power Supply</option>
+                            <option value="ICs">ICs</option>
+                            <option value="Tools & Others">Tools & Others</option>
                         </select>
                     </div>
 
@@ -415,7 +420,7 @@ body::-webkit-scrollbar {
                         </label>
 
                         <select name="condition" required>
-                            <option value=""><%=products.Product_condition%></option>
+                            <option value="<%=products.Product_condition%>"><%=products.Product_condition%></option>
                             <option value="New">New</option>
                             <option value="Like New">Like New</option>
                             <option value="Good">Good</option>
@@ -438,7 +443,7 @@ body::-webkit-scrollbar {
                             type="number"
                             name="price"
                             placeholder="e.g. 450"
-                            value = <%=products.Price%>
+                            value="<%=products.Price%>"
                             required
                         >
                     </div>
@@ -453,7 +458,7 @@ body::-webkit-scrollbar {
                             type="number"
                             name="originalPrice"
                             placeholder="e.g. 900"
-                            value = <%=products.original_price%>
+                            value="<%=products.original_price%>"
                         >
                     </div>
 
@@ -471,7 +476,7 @@ body::-webkit-scrollbar {
                         name="quantity"
                         placeholder="e.g. 1"
                         min="1"
-                        value = <%=products.quantity%>
+                        value="<%=products.quantity%>"
                         required
                     >
                 </div>
@@ -509,14 +514,12 @@ body::-webkit-scrollbar {
 
                     <p>Drag & drop or click to browse</p>
 
-                    <small>Up to 5 images</small>
+                    <small>Up to 5mb image file</small>
 
                     <input
                         type="file"
-                        name="images"
-                        multiple
-                        accept="image/*"
-                        
+                        name="image"
+                        accept="image/jpeg, image/jpg, image/png"
                     >
 
                 </div>
@@ -539,7 +542,7 @@ body::-webkit-scrollbar {
                         type="text"
                         name="city"
                         placeholder="e.g. Pune"
-                        value = <%=products.city%>
+                        value="<%=products.city%>"
                         required
                     >
 
@@ -557,7 +560,7 @@ body::-webkit-scrollbar {
                         type="text"
                         name="state"
                         placeholder="e.g. Maharashtra"
-                        value = <%=products.state%>
+                        value="<%=products.state%>"
                         required
                     >
 
@@ -574,6 +577,7 @@ body::-webkit-scrollbar {
                     <input
                         type="date"
                         name="date"
+                        value="<%=products.purchase_date ? products.purchase_date.toISOString().slice(0,10) : ''%>"
                     >
 
                 </div>

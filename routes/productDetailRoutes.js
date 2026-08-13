@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db/connection");
+const crypto = require("crypto");
 
 router.get("/:id", (req, res) => {
 
@@ -38,26 +39,28 @@ router.get("/:id", (req, res) => {
 
             console.log("PRODUCT:", product);
             console.log("USER:", user);
-            const wishsql = "SELECT * FROM wishlist where product_id=?"
 
-            db.query(wishsql,[id],(err,wishResult)=>{
+            const wishsql = `
+                SELECT * FROM wishlist
+                WHERE product_id = ? AND user_id = ?
+            `;
 
-                const wishlist = wishResult[0] || null;;
-                 return res.render("listings/productDetailsPage.ejs", {
-                activePage: "",
-                product: product,
-                user: user,
-                wishlist: wishlist
+            db.query(wishsql, [id, req.session.user_id], (err, wishResult) => {
+
+                const wishlist = wishResult[0] || null;
+
+                return res.render("listings/productDetailsPage.ejs", {
+                    activePage: "",
+                    product: product,
+                    user: user,
+                    wishlist: wishlist
+                });
             });
-            })
-
-           
-
         });
-
     });
-
 });
+
+// Add to wishlist
 router.post("/wishlist", (req, res) => {
 
     const { product_id } = req.body;
@@ -68,26 +71,79 @@ router.post("/wishlist", (req, res) => {
         return res.redirect("/login");
     }
 
-    const wishlist_id = crypto.randomUUID();
+    if (!product_id) {
+        return res.status(400).send("Product ID is required");
+    }
 
-    const sql = `
-        INSERT INTO wishlist
-        (wishlist_id, user_id, product_id, created_at)
-        VALUES (?, ?, ?, ?)
+    // Don't add if it already exists
+    const checkSql = `
+        SELECT * FROM wishlist
+        WHERE user_id = ? AND product_id = ?
     `;
 
-    db.query(
-        sql,
-        [wishlist_id, user_id, product_id, created_at],
-        (err, result) => {
+    db.query(checkSql, [user_id, product_id], (err, existing) => {
 
-            if (err) {
-                console.log(err);
-                return res.status(500).send(err.sqlMessage);
-            }
-
-            res.redirect(`/productDetails/${product_id}`);
+        if (err) {
+            console.log(err);
+            return res.status(500).send("Database error");
         }
-    );
+
+        if (existing.length > 0) {
+            return res.redirect(`/productDetails/${product_id}`);
+        }
+
+        const wishlist_id = crypto.randomUUID();
+
+        const sql = `
+            INSERT INTO wishlist
+            (wishlist_id, user_id, product_id, created_at)
+            VALUES (?, ?, ?, ?)
+        `;
+
+        db.query(
+            sql,
+            [wishlist_id, user_id, product_id, created_at],
+            (err, result) => {
+
+                if (err) {
+                    console.log(err);
+                    return res.status(500).send(err.sqlMessage);
+                }
+
+                res.redirect(`/productDetails/${product_id}`);
+            }
+        );
+    });
 });
+
+// Remove from wishlist
+router.post("/wishlist/remove", (req, res) => {
+
+    const { product_id } = req.body;
+    const user_id = req.session.user_id;
+
+    if (!user_id) {
+        return res.redirect("/login");
+    }
+
+    if (!product_id) {
+        return res.status(400).send("Product ID is required");
+    }
+
+    const sql = `
+        DELETE FROM wishlist
+        WHERE user_id = ? AND product_id = ?
+    `;
+
+    db.query(sql, [user_id, product_id], (err, result) => {
+
+        if (err) {
+            console.log(err);
+            return res.status(500).send("Database error");
+        }
+
+        res.redirect(`/productDetails/${product_id}`);
+    });
+});
+
 module.exports = router;

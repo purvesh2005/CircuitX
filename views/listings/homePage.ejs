@@ -1,5 +1,5 @@
 <% layout("/layouts/boilerplate") %>
- 
+
 <style>
     /* ================= HERO ================= */
 
@@ -724,7 +724,7 @@ html::-webkit-scrollbar {
 
     <div class="categories">
 
-        <a href="/categories/arduino" class="category">
+        <a href="/browse?category=Microcontrollers" class="category">
 
             <div class="category-img">
                 <img src="/images/aurdino.png" alt="Arduino">
@@ -735,7 +735,7 @@ html::-webkit-scrollbar {
         </a>
 
 
-        <a href="/categories/sensors" class="category">
+        <a href="/browse?category=Sensors" class="category">
 
             <div class="category-img">
                 <img src="/images/sensors.png" alt="Sensors">
@@ -746,7 +746,7 @@ html::-webkit-scrollbar {
         </a>
 
 
-        <a href="/categories/motors" class="category">
+        <a href="/browse?category=Motors" class="category">
 
             <div class="category-img">
                 <img src="/images/motor.png" alt="Motors">
@@ -757,7 +757,7 @@ html::-webkit-scrollbar {
         </a>
 
 
-        <a href="/categories/esp32" class="category">
+        <a href="/browse?category=Development%20Boards" class="category">
 
             <div class="category-img">
                 <img src="/images/esp32.png" alt="ESP32">
@@ -768,7 +768,7 @@ html::-webkit-scrollbar {
         </a>
 
 
-        <a href="/categories/ics" class="category">
+        <a href="/browse?category=ICs" class="category">
 
             <div class="category-img">
                 <img src="/images/ICs.png" alt="ICs">
@@ -779,7 +779,7 @@ html::-webkit-scrollbar {
         </a>
 
 
-        <a href="/categories/power-supply" class="category">
+        <a href="/browse?category=Power%20Supply" class="category">
 
             <div class="category-img">
                 <img src="/images/power_supply.png" alt="Power Supply">
@@ -790,7 +790,7 @@ html::-webkit-scrollbar {
         </a>
 
 
-        <a href="/categories/robotics" class="category">
+        <a href="/browse?category=Tools%20%26%20Others" class="category">
 
             <div class="category-img">
                 <img src="/images/robotics.png" alt="Robotics">
@@ -833,17 +833,41 @@ html::-webkit-scrollbar {
 
    <div class="listings">
 
+    <% if (products.length === 0) { %>
+
+        <p style="grid-column:1/-1;text-align:center;color:#6b7280;padding:40px 0;font-size:14px;">
+            No components listed yet. Be the first to sell!
+        </p>
+
+    <% } %>
+
     <% for (let product of products) { %>
 
-        <div class="listing-card">
+        <a href="/productDetails/<%= product.product_id %>"
+           class="listing-card"
+           style="text-decoration:none;color:inherit;">
 
             <div class="listing-image">
                 <img src="<%= product.image_url %>"
                      alt="<%= product.product_name %>">
 
-                <button class="wishlist">
-                    <i class="fa-regular fa-heart"></i>
-                </button>
+                <form action="/wishlist/add" method="POST"
+                      style="margin:0;position:absolute;right:7px;top:7px;"
+                      onclick="event.stopPropagation();">
+                    <input type="hidden" name="product_id" value="<%= product.product_id %>">
+                    <button class="wishlist" type="submit" style="position:static;">
+                        <i class="fa-regular fa-heart"></i>
+                    </button>
+                </form>
+
+                <% if (product.discount > 0) { %>
+                <span style="position:absolute;left:7px;top:7px;
+                             background:#ef4444;color:white;
+                             font-size:9px;font-weight:700;
+                             padding:3px 6px;border-radius:4px;">
+                    <%= product.discount %>% OFF
+                </span>
+                <% } %>
             </div>
 
             <div class="listing-info">
@@ -852,19 +876,15 @@ html::-webkit-scrollbar {
 
                 <div class="listing-bottom">
                     <strong>₹<%= product.Price %></strong>
-                    <span><%= product.discount %>% OFF</span>
+                    <span><%= product.condition || product.Product_condition %></span>
                 </div>
 
             </div>
 
-        </div>
+        </a>
 
     <% } %>
 
 </div>
 
 </section>
-
-
-
-

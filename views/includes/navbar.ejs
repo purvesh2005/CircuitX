@@ -49,39 +49,50 @@
     <!-- Right Side -->
     <div class="nav-right">
 
-        <!-- Cart -->
-        <button class="icon-btn" aria-label="Cart">
-            🛒
-        </button>
+        <% if (typeof user !== "undefined" && user) { %>
 
-        <!-- Notifications -->
-        <button class="icon-btn" aria-label="Notifications">
-            ♡
-        </button>
+            <!-- Cart -->
+            <button class="icon-btn" aria-label="Cart">
+                🛒
+            </button>
 
+            <!-- Notifications -->
+            <button class="icon-btn" aria-label="Notifications">
+                ♡
+            </button>
 
-        <!-- Profile -->
-        <a href="/profile" class="profile-section">
+            <!-- Profile -->
+            <a href="/dashboard" class="profile-section">
 
-            <div class="profile-avatar">
-                <span>👤</span>
-            </div>
+                <div class="profile-avatar">
+                    <span>👤</span>
+                </div>
 
-            <div class="profile-info">
+                <div class="profile-info">
 
-                <span class="profile-name">
-                    <%= typeof user !== "undefined" && user
-                        ? user.name
-                        : "Guest" %>
-                </span>
+                    <span class="profile-name">
+                        <%= user.name %>
+                    </span>
 
-                <span class="profile-label">
-                    My Profile
-                </span>
+                    <span class="profile-label">
+                        My Profile
+                    </span>
 
-            </div>
+                </div>
 
-        </a>
+            </a>
+
+            <!-- Logout -->
+            <a href="/logout" class="logout-link">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </a>
+
+        <% } else { %>
+
+            <a href="/login" class="auth-btn login-btn-nav">Login</a>
+            <a href="/register" class="auth-btn register-btn-nav">Register</a>
+
+        <% } %>
 
     </div>
 
