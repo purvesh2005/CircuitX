@@ -485,7 +485,17 @@ body {
     background: #047857;
     border-color: #047857;
 }
+html,
+body {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    overflow-x: hidden;
+}
 
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    display: none;
+}
 
 /* =====================================================
    RESPONSIVE

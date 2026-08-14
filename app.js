@@ -19,6 +19,7 @@ const rootRoutes = require("./routes/rootRoutes");
 const productDetailRoutes = require("./routes/productDetailRoutes");
 const categoriesRoutes = require("./routes/categoriesRoutes");
 const editComponentRoutes = require("./routes/editComponentRoutes");
+const profileRoutes = require("./routes/profileRoutes");
 
 
 // EJS
@@ -51,7 +52,7 @@ app.use((req, res, next) => {
 
     if (req.session.user_id) {
 
-        const sql = "SELECT user_id, name, email, college, phone FROM users WHERE user_id = ?";
+        const sql = "SELECT * FROM users WHERE user_id = ?";
 
         db.query(sql, [req.session.user_id], (err, results) => {
 
@@ -80,6 +81,7 @@ app.use("/", rootRoutes);
 app.use("/productDetails", productDetailRoutes);
 app.use("/categories", categoriesRoutes);
 app.use("/editComponent", editComponentRoutes);
+app.use("/profile", profileRoutes);
 
 
 // Server
