@@ -1,8 +1,10 @@
 import React from 'react'
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
+
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+
 import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
@@ -15,12 +17,22 @@ import AddComponentPage from './pages/AddComponentPage'
 import EditComponentPage from './pages/EditComponentPage'
 import ProfilePage from './pages/ProfilePage'
 
-function App() {
+
+function AppContent() {
+
+  const location = useLocation()
+
+  const hideNavbar =
+    location.pathname === "/login" ||
+    location.pathname === "/register"
+
   return (
-    <AuthProvider>
-      <Navbar />
+    <>
+      {!hideNavbar && <Navbar />}
+
       <main>
         <Routes>
+
           <Route path="/" element={<Navigate to="/home" />} />
           <Route path="/home" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
@@ -33,9 +45,22 @@ function App() {
           <Route path="/sell" element={<AddComponentPage />} />
           <Route path="/editComponent/:id" element={<EditComponentPage />} />
           <Route path="/profile" element={<ProfilePage />} />
+
         </Routes>
       </main>
+
       <Footer />
+    </>
+  )
+}
+
+
+function App() {
+  return (
+    <AuthProvider>
+
+      <AppContent />
+
     </AuthProvider>
   )
 }
