@@ -5,6 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node backend/app.js",
+    "dev": "concurrently \"node backend/app.js\" \"vite --config frontend/vite.config.js\"",
+    "dev:server": "node backend/app.js",
+    "dev:client": "vite --config frontend/vite.config.js",
+    "build": "vite build --config frontend/vite.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -13,12 +17,22 @@
   "type": "commonjs",
   "dependencies": {
     "@imagekit/nodejs": "^7.10.0",
+    "axios": "^1.19.0",
+    "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "ejs-mate": "^4.0.0",
     "express": "^5.2.1",
     "express-session": "^1.19.0",
     "multer": "^2.2.0",
     "mysql2": "^3.23.2",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-router-dom": "^7.18.2",
     "sharp": "^0.35.3"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.5",
+    "concurrently": "^9.2.4",
+    "vite": "^8.2.1"
   }
 }

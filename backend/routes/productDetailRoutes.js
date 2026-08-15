@@ -24,21 +24,20 @@ router.get("/:id", (req, res) => {
 
         const userSql = "SELECT * FROM users WHERE user_id = ?";
 
-        db.query(userSql, [product.seller_id], (err, userResults) => {
+        db.query(userSql, [product.seller_id], (err, sellerResults) => {
 
             if (err) {
                 console.log(err);
                 return res.status(500).send("Database error");
             }
 
-            if (userResults.length === 0) {
+            if (sellerResults.length === 0) {
                 return res.status(404).send("Seller not found");
             }
 
-            const user = userResults[0];
+            const seller = sellerResults[0];
 
-            console.log("PRODUCT:", product);
-            console.log("USER:", user);
+          
 
             const wishsql = `
                 SELECT * FROM wishlist
@@ -52,7 +51,7 @@ router.get("/:id", (req, res) => {
                 return res.render("listings/productDetailsPage.ejs", {
                     activePage: "",
                     product: product,
-                    user: user,
+                    seller:seller,
                     wishlist: wishlist
                 });
             });

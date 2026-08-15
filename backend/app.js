@@ -1,11 +1,10 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
-const ejsMate = require("ejs-mate");
 const path = require("path");
 const session = require("express-session");
+const cors = require("cors");
 const db = require("./db/connection");
-
 
 // Routes
 const loginRoutes = require("./routes/loginRoutes");
@@ -21,17 +20,20 @@ const categoriesRoutes = require("./routes/categoriesRoutes");
 const editComponentRoutes = require("./routes/editComponentRoutes");
 const profileRoutes = require("./routes/profileRoutes");
 
-
-// EJS
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "../frontend/views"));
-app.engine("ejs", ejsMate);
-
+// API Routes
+const apiAuthRoutes = require("./api/authRoutes");
+const apiProductRoutes = require("./api/productRoutes");
+const apiWishlistRoutes = require("./api/wishlistRoutes");
+const apiUserRoutes = require("./api/userRoutes");
 
 // Middleware
+app.use(cors({
+    origin: "http://localhost:5173",
+    credentials: true
+}));
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "../frontend/public")));
-
 
 // SESSION
 app.use(
@@ -41,7 +43,6 @@ app.use(
         saveUninitialized: false
     })
 );
-
 
 // =====================================================
 // GLOBAL MIDDLEWARE - Pass logged-in user to all views
@@ -68,8 +69,17 @@ app.use((req, res, next) => {
     }
 });
 
+// =====================================================
+// API ROUTES
+// =====================================================
+app.use("/api/auth", apiAuthRoutes);
+app.use("/api/products", apiProductRoutes);
+app.use("/api/wishlist", apiWishlistRoutes);
+app.use("/api/users", apiUserRoutes);
 
-// Routes
+// =====================================================
+// EJS ROUTES (kept for backward compatibility)
+// =====================================================
 app.use("/login", loginRoutes);
 app.use("/register", registerRoutes);
 app.use("/home", homeRoutes);
@@ -82,7 +92,6 @@ app.use("/productDetails", productDetailRoutes);
 app.use("/categories", categoriesRoutes);
 app.use("/editComponent", editComponentRoutes);
 app.use("/profile", profileRoutes);
-
 
 // Server
 app.listen(8080, () => {
