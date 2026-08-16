@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import api from '../api'
-import '../styles/profile.css'
 
 function ProfilePage() {
   const [user, setUser] = useState(null)
@@ -54,43 +53,43 @@ function ProfilePage() {
     }
   }
 
-  if (!user) return <div style={{ textAlign: 'center', padding: '100px' }}>Loading...</div>
+  if (!user) return <div className="text-center py-[100px]">Loading...</div>
 
   return (
-    <div className="profile-page">
-      <div className="profile-container">
-        <div className="profile-header">
-          <div className="profile-avatar-large">
-            <img src={user.profile_image} alt="" />
+    <div className="min-h-[calc(100vh-72px)] bg-[#f7f9f8] px-4 pt-[30px] pb-10">
+      <div className="max-w-[900px] min-h-[600px] mx-auto bg-white border border-[#eeeeee] rounded-xl overflow-hidden shadow-[0_2px_15px_rgba(0,0,0,0.04)]">
+        <div className="bg-gradient-to-br from-[#08a568] to-[#06b87a] px-[30px] pt-10 pb-[30px] text-center text-white relative max-[650px]:px-5 max-[650px]:pt-[30px] max-[650px]:pb-[25px]">
+          <div className="w-[90px] h-[90px] rounded-full overflow-hidden border-[3px] border-white/60 mx-auto mb-[15px] flex items-center justify-center">
+            <img src={user.profile_image} alt="" className="w-full h-full object-cover object-center block" />
           </div>
-          <h1>{user.name}</h1>
-          <p className="profile-email">{user.email}</p>
+          <h1 className="text-[22px] font-bold mb-[5px]">{user.name}</h1>
+          <p className="text-[13px] opacity-90">{user.email}</p>
         </div>
 
-        <div className="profile-stats">
-          <div className="stat-card">
-            <div className="stat-number">{stats.total_listings || 0}</div>
-            <div className="stat-label">Total Listings</div>
+        <div className="grid grid-cols-3 gap-[15px] px-[30px] py-5 bg-[#fafafa] border-b border-[#eeeeee] max-[650px]:grid-cols-1">
+          <div className="text-center px-2.5 py-[15px] bg-white border border-[#eeeeee] rounded-lg">
+            <div className="text-2xl font-bold text-[#08a568] mb-1">{stats.total_listings || 0}</div>
+            <div className="text-[11px] text-[#666] font-medium">Total Listings</div>
           </div>
 
-          <div className="stat-card">
-            <div className="stat-number">{stats.total_views || 0}</div>
-            <div className="stat-label">Total Views</div>
+          <div className="text-center px-2.5 py-[15px] bg-white border border-[#eeeeee] rounded-lg">
+            <div className="text-2xl font-bold text-[#08a568] mb-1">{stats.total_views || 0}</div>
+            <div className="text-[11px] text-[#666] font-medium">Total Views</div>
           </div>
 
-          <div className="stat-card">
-            <div className="stat-number">₹</div>
-            <div className="stat-label">Total Earnings</div>
+          <div className="text-center px-2.5 py-[15px] bg-white border border-[#eeeeee] rounded-lg">
+            <div className="text-2xl font-bold text-[#08a568] mb-1">₹</div>
+            <div className="text-[11px] text-[#666] font-medium">Total Earnings</div>
           </div>
         </div>
 
-        <div className="profile-form-section">
-          <h2>Edit Profile</h2>
+        <div className="p-[30px] max-[650px]:p-5">
+          <h2 className="text-base font-bold mb-5 text-[#222]">Edit Profile</h2>
 
           <form onSubmit={handleSubmit}>
-            <div className="form-grid">
-              <div className="form-group">
-                <label htmlFor="name">Full Name</label>
+            <div className="grid grid-cols-2 gap-[18px] max-[650px]:grid-cols-1">
+              <div className="flex flex-col gap-1.5">
+                <label htmlFor="name" className="text-xs font-semibold text-[#333]">Full Name</label>
                 <input
                   type="text"
                   id="name"
@@ -98,11 +97,12 @@ function ProfilePage() {
                   value={formData.name}
                   onChange={handleChange}
                   required
+                  className="h-10 px-3 border border-[#ddd] rounded-md text-[13px] text-[#333] outline-none transition duration-200 focus:border-[#08a568] focus:shadow-[0_0_0_3px_rgba(8,165,104,0.1)]"
                 />
               </div>
 
-              <div className="form-group">
-                <label htmlFor="email">Email</label>
+              <div className="flex flex-col gap-1.5">
+                <label htmlFor="email" className="text-xs font-semibold text-[#333]">Email</label>
                 <input
                   type="email"
                   id="email"
@@ -110,11 +110,12 @@ function ProfilePage() {
                   value={formData.email}
                   onChange={handleChange}
                   required
+                  className="h-10 px-3 border border-[#ddd] rounded-md text-[13px] text-[#333] outline-none transition duration-200 focus:border-[#08a568] focus:shadow-[0_0_0_3px_rgba(8,165,104,0.1)]"
                 />
               </div>
 
-              <div className="form-group">
-                <label htmlFor="phone">Phone Number</label>
+              <div className="flex flex-col gap-1.5">
+                <label htmlFor="phone" className="text-xs font-semibold text-[#333]">Phone Number</label>
                 <input
                   type="tel"
                   id="phone"
@@ -126,11 +127,12 @@ function ProfilePage() {
                   minLength="10"
                   inputMode="numeric"
                   required
+                  className="h-10 px-3 border border-[#ddd] rounded-md text-[13px] text-[#333] outline-none transition duration-200 focus:border-[#08a568] focus:shadow-[0_0_0_3px_rgba(8,165,104,0.1)]"
                 />
               </div>
 
-              <div className="form-group">
-                <label htmlFor="college">College Name</label>
+              <div className="flex flex-col gap-1.5">
+                <label htmlFor="college" className="text-xs font-semibold text-[#333]">College Name</label>
                 <input
                   type="text"
                   id="college"
@@ -138,36 +140,38 @@ function ProfilePage() {
                   value={formData.college}
                   onChange={handleChange}
                   required
+                  className="h-10 px-3 border border-[#ddd] rounded-md text-[13px] text-[#333] outline-none transition duration-200 focus:border-[#08a568] focus:shadow-[0_0_0_3px_rgba(8,165,104,0.1)]"
                 />
               </div>
 
-              <div className="form-group full-width">
-                <label htmlFor="user_id">User ID</label>
+              <div className="flex flex-col gap-1.5 col-span-full">
+                <label htmlFor="user_id" className="text-xs font-semibold text-[#333]">User ID</label>
                 <input
                   type="text"
                   id="user_id"
                   value={user.user_id}
                   readOnly
+                  className="h-10 px-3 border border-[#ddd] rounded-md text-[13px] bg-[#f5f5f5] text-[#888] cursor-not-allowed"
                 />
               </div>
             </div>
 
-            <button type="submit" className="save-btn">Save Changes</button>
+            <button type="submit" className="h-10 px-[30px] bg-[#08a568] text-white border-none rounded-md text-[13px] font-semibold cursor-pointer transition duration-200 mt-5 hover:bg-[#078b58]">Save Changes</button>
           </form>
         </div>
       </div>
 
       {error && (
-        <div className="error-popup">
+        <div className="fixed top-5 right-5 bg-[#e55b5b] text-white py-3.5 px-5 rounded-lg text-[13px] font-medium flex items-center gap-[15px] shadow-[0_4px_15px_rgba(0,0,0,0.15)] z-[1000]">
           <span>{error}</span>
-          <button onClick={() => setError('')}>×</button>
+          <button onClick={() => setError('')} className="bg-none border-none text-white text-lg cursor-pointer leading-none">×</button>
         </div>
       )}
 
       {success && (
-        <div className="success-popup">
+        <div className="fixed top-5 right-5 bg-[#08a568] text-white py-3.5 px-5 rounded-lg text-[13px] font-medium flex items-center gap-[15px] shadow-[0_4px_15px_rgba(0,0,0,0.15)] z-[1000]">
           <span>{success}</span>
-          <button onClick={() => setSuccess('')}>×</button>
+          <button onClick={() => setSuccess('')} className="bg-none border-none text-white text-lg cursor-pointer leading-none">×</button>
         </div>
       )}
     </div>
