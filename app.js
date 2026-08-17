@@ -20,6 +20,8 @@ const productDetailRoutes = require("./routes/productDetailRoutes");
 const categoriesRoutes = require("./routes/categoriesRoutes");
 const editComponentRoutes = require("./routes/editComponentRoutes");
 const profileRoutes = require("./routes/profileRoutes");
+const cartRoutes = require("./routes/cartRoutes");
+
 
 
 // EJS
@@ -31,6 +33,9 @@ app.engine("ejs", ejsMate);
 // Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
+app.use(express.urlencoded({extended:true}));
+app.use(express.json());
+
 
 
 // SESSION
@@ -82,6 +87,8 @@ app.use("/productDetails", productDetailRoutes);
 app.use("/categories", categoriesRoutes);
 app.use("/editComponent", editComponentRoutes);
 app.use("/profile", profileRoutes);
+app.use("/cart",cartRoutes);
+
 
 
 // Server

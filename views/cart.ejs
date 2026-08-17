@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>CircuitX - My Cart</title>
+
+    <link
+        rel="stylesheet"
+        href="/css/cart.css"
+    >
+
+</head>
+
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <div class="brand">
+
+            <div class="brand-name">
+                Circuit<span>X</span>
+            </div>
+
+            <div class="tagline">
+                Reuse. Save. Build.
+            </div>
+
+        </div>
+
+
+        <nav class="nav-links">
+
+            <a href="/">Home</a>
+
+            <a href="/browse">Browse</a>
+
+            <a href="/categories">Categories</a>
+
+            <a href="/dashboard">Dashboard</a>
+
+            <a href="/wishlist">Wishlist</a>
+
+        </nav>
+
+
+        <div class="nav-actions">
+
+            <a href="/cart" class="cart-icon">
+                🛒
+                <span id="navCartCount">0</span>
+            </a>
+
+            <span class="heart-icon">♡</span>
+
+            <div class="profile">
+
+                <span class="profile-icon">
+                    👤
+                </span>
+
+                <div>
+
+                    <strong>
+                        Purvesh Thite
+                    </strong>
+
+                    <small>
+                        My Profile
+                    </small>
+
+                </div>
+
+                <span>⌄</span>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="cart-page">
+
+
+        <!-- Page Heading -->
+
+        <div class="cart-heading">
+
+            <div>
+
+                <h1>
+                    🛒 My Cart
+                    <span>
+                        (<span id="cartItemCount">0</span> Items)
+                    </span>
+                </h1>
+
+            </div>
+
+
+            <button
+                class="continue-btn"
+                onclick="continueShopping()"
+            >
+                ← Continue Shopping
+            </button>
+
+        </div>
+
+
+
+        <!-- ================= CART TABLE ================= -->
+
+        <section class="cart-section">
+
+
+            <div class="cart-table-header">
+
+                <div>Product</div>
+
+                <div>Price</div>
+
+                <div>Quantity</div>
+
+                <div>Subtotal</div>
+
+                <div>Action</div>
+
+            </div>
+
+
+            <!-- Products will come here from JS -->
+
+            <div id="cartItems">
+
+                <!-- JavaScript will load products -->
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================= BOTTOM SECTION ================= -->
+
+        <div class="cart-bottom">
+
+
+            <!-- COUPON -->
+
+            <div class="coupon-card">
+
+                <h3>
+                    🏷 Have a coupon?
+                </h3>
+
+                <div class="coupon-box">
+
+                    <input
+                        type="text"
+                        id="couponCode"
+                        placeholder="Enter coupon code"
+                    >
+
+                    <button
+                        onclick="applyCoupon()"
+                    >
+                        Apply
+                    </button>
+
+                </div>
+
+                <p>
+                    Try <strong>CIRCUIT10</strong> for 10% off.
+                </p>
+
+            </div>
+
+
+
+            <!-- CART SUMMARY -->
+
+            <div class="summary-card">
+
+                <h2>
+                    Cart Summary
+                </h2>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Subtotal
+                    </span>
+
+                    <strong id="cartSubtotal">
+                        ₹0.00
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Shipping Charges
+                    </span>
+
+                    <strong id="shippingCharges">
+                        ₹0.00
+                    </strong>
+
+                </div>
+
+
+                <div
+                    class="summary-row discount-row"
+                >
+
+                    <span>
+                        Discount
+                    </span>
+
+                    <strong id="discountAmount">
+                        - ₹0.00
+                    </strong>
+
+                </div>
+
+
+                <hr>
+
+
+                <div class="total-row">
+
+                    <span>
+                        Total Amount
+                    </span>
+
+                    <strong id="cartTotal">
+                        ₹0.00
+                    </strong>
+
+                </div>
+
+
+                <button
+                    class="checkout-btn"
+                    onclick="proceedToCheckout()"
+                >
+                    🔒 Proceed to Checkout
+                </button>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="features-footer">
+
+
+        <div class="feature">
+
+            <span>🎓</span>
+
+            <div>
+
+                <strong>
+                    Student Friendly
+                </strong>
+
+                <p>
+                    Best prices for students
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="feature">
+
+            <span>⚙</span>
+
+            <div>
+
+                <strong>
+                    Quality Tested
+                </strong>
+
+                <p>
+                    Tested components
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="feature">
+
+            <span>🛡</span>
+
+            <div>
+
+                <strong>
+                    Secure Payments
+                </strong>
+
+                <p>
+                    100% secure payments
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="feature">
+
+            <span>♻</span>
+
+            <div>
+
+                <strong>
+                    Easy Returns
+                </strong>
+
+                <p>
+                    Hassle free returns
+                </p>
+
+            </div>
+
+        </div>
+
+
+</footer>
+
+
+<script src="/js/cart.js"></script>
+
+</body>
+
+</html>
